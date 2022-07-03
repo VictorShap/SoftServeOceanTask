@@ -1,0 +1,16 @@
+E:\SoftServe\Projects\FirstProject\FirstProject\bin\Debug\FirstProject.exe.config
+E:\SoftServe\Projects\FirstProject\FirstProject\bin\Debug\FirstProject.exe
+E:\SoftServe\Projects\FirstProject\FirstProject\bin\Debug\FirstProject.pdb
+E:\SoftServe\Projects\FirstProject\FirstProject\obj\Debug\FirstProject.csproj.AssemblyReference.cache
+E:\SoftServe\Projects\FirstProject\FirstProject\obj\Debug\FirstProject.csproj.SuggestedBindingRedirects.cache
+E:\SoftServe\Projects\FirstProject\FirstProject\obj\Debug\FirstProject.csproj.CoreCompileInputs.cache
+E:\SoftServe\Projects\FirstProject\FirstProject\obj\Debug\FirstProject.exe
+E:\SoftServe\Projects\FirstProject\FirstProject\obj\Debug\FirstProject.pdb
+E:\SoftServe\Projects\Ocean\FirstProject\bin\Debug\FirstProject.exe.config
+E:\SoftServe\Projects\Ocean\FirstProject\bin\Debug\FirstProject.exe
+E:\SoftServe\Projects\Ocean\FirstProject\bin\Debug\FirstProject.pdb
+E:\SoftServe\Projects\Ocean\FirstProject\obj\Debug\FirstProject.csproj.AssemblyReference.cache
+E:\SoftServe\Projects\Ocean\FirstProject\obj\Debug\FirstProject.csproj.SuggestedBindingRedirects.cache
+E:\SoftServe\Projects\Ocean\FirstProject\obj\Debug\FirstProject.csproj.CoreCompileInputs.cache
+E:\SoftServe\Projects\Ocean\FirstProject\obj\Debug\FirstProject.exe
+E:\SoftServe\Projects\Ocean\FirstProject\obj\Debug\FirstProject.pdb
