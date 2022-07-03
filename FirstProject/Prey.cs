@@ -9,17 +9,17 @@ namespace FirstProject
     internal class Prey : Cell
     {
         const int TimeToReproduceDefault = 6;
-        protected int timeToReproduce;
+        protected int _timeToReproduce;
 
-        public Prey(Coordinate coordinate, int timeToReproduce = 6) : base(coordinate)
+        public Prey(Coordinate coordinate, Ocean ocean, int timeToReproduce = 6) : base(coordinate, ocean)
         {
-            image = 'f';
-            this.timeToReproduce = timeToReproduce;
+            _image = 'f';
+            this._timeToReproduce = timeToReproduce;
         }
 
         public override void Process()
         {
-            Coordinate toCoord = GetEmptyNeighborCoord();
+            Coordinate toCoord = Owner.GetEmptyNeighborCoord(this.Offset);
 
             if (isBeenIterated)
             {
@@ -28,33 +28,22 @@ namespace FirstProject
 
             isBeenIterated = true;
 
-            if (--timeToReproduce <= 0)
+            if (--_timeToReproduce <= 0)
             {
-                AssignCellAt(toCoord, Reproduce(toCoord));
-                timeToReproduce = 6;
+                Owner.AssignCellAt(toCoord, Reproduce(toCoord));
+                _timeToReproduce = 6;
             }
             else
             {
-                MoveFrom(Offset, toCoord);
+                _owner.MoveFrom(Offset, toCoord);
             }
 
-        }
-
-        protected void MoveFrom(Coordinate from, Coordinate to)
-        {
-            if (from != to)
-            {
-                Offset = to;
-
-                AssignCellAt(to, this);
-                AssignCellAt(from, new Cell(from));
-            }
         }
 
         protected override Cell Reproduce(Coordinate coordinate)
         {
-            owner.NumPrey = owner.NumPrey + 1;
-            return new Prey(coordinate);
+            Owner.NumPrey = Owner.NumPrey + 1;
+            return new Prey(coordinate, this.Owner);
         }
     }
 }

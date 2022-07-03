@@ -8,9 +8,19 @@ namespace FirstProject
 {
     internal class Obstacle : Cell
     {
-        public Obstacle(Coordinate coordinate) : base(coordinate)
+        public Obstacle(Coordinate coordinate, Ocean ocean) : base(coordinate, ocean)
         {
-            image = '#';
+            _image = '#';
+        }
+
+        public override void Process()
+        {
+
+        }
+
+        protected override Cell Reproduce(Coordinate coordinate)
+        {
+            return this;
         }
     }
 }

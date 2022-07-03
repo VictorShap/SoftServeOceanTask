@@ -45,12 +45,14 @@
   <ItemGroup>
     <Compile Include="Cell.cs" />
     <Compile Include="Coordinate.cs" />
+    <Compile Include="NeighborType.cs" />
     <Compile Include="Obstacle.cs" />
     <Compile Include="Ocean.cs" />
     <Compile Include="Predator.cs" />
     <Compile Include="Prey.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomNumberGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -8,12 +8,12 @@ namespace FirstProject
 {
     internal class Predator : Prey
     {
-        private int timeToFeed;
+        private int _timeToFeed;
 
-        public Predator(Coordinate coordinate, int timeToFeed = 6) : base(coordinate)
+        public Predator(Coordinate coordinate, Ocean ocean, int timeToFeed = 6) : base(coordinate, ocean)
         {
-            image = 'S';
-            this.timeToFeed = timeToFeed;
+            _image = 'S';
+            this._timeToFeed = timeToFeed;
         }
 
         public override void Process()
@@ -25,23 +25,23 @@ namespace FirstProject
                 return;
             }
 
-            if (--timeToFeed <= 0)
+            if (--_timeToFeed <= 0)
             {
-                owner.NumPredators = owner.NumPredators - 1;
+                Owner.NumPredators = Owner.NumPredators - 1;
 
-                AssignCellAt(Offset, new Cell(Offset));
+                Owner.AssignCellAt(Offset, null);
             }
             else
             {
-                toCoordinate = GetNeighborPreyCoord();
+                toCoordinate = Owner.GetNeighborPreyCoord(this.Offset);
 
                 if (toCoordinate != Offset)
                 {
-                    owner.NumPrey = owner.NumPrey - 1;
-                    timeToFeed = 6;
-                    timeToReproduce = timeToReproduce - 1;
+                    Owner.NumPrey = Owner.NumPrey - 1;
+                    _timeToFeed = 6;
+                    _timeToReproduce = _timeToReproduce - 1;
 
-                    MoveFrom(Offset, toCoordinate);
+                    _owner.MoveFrom(Offset, toCoordinate);
                 }
                 else
                 {
@@ -54,8 +54,8 @@ namespace FirstProject
 
         protected override Cell Reproduce(Coordinate coordinate)
         {
-            owner.NumPredators = owner.NumPredators + 1;
-            return new Predator(coordinate);
+            Owner.NumPredators = Owner.NumPredators + 1;
+            return new Predator(coordinate, this.Owner);
         }
     }
 }
