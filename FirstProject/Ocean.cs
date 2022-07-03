@@ -60,7 +60,7 @@ namespace FirstProject
             }
             set
             {
-                if (value > size - NumObstacles - NumPredators || value <= 0)
+                if (value > size - NumObstacles - NumPredators || value < 0)
                 {
                     Console.WriteLine("Invalid value, so it will be set to maximum possible value");
                     numPrey = size - NumObstacles - NumPredators;
@@ -79,7 +79,7 @@ namespace FirstProject
             }
             set
             {
-                if (value > size - NumObstacles - 1 || value <= 0)
+                if (value > size - NumObstacles - 1 || value < 0)
                 {
                     Console.WriteLine("Invalid value, so it will be set to maximum possible value");
                     numPredators = size - NumObstacles - 1;
@@ -98,7 +98,7 @@ namespace FirstProject
             }
             set
             {
-                if (value > size - 2 || value <= 0)
+                if (value > size - 2 || value < 0)
                 {
                     Console.WriteLine("Invalid value, so it will be set to maximum possible value");
                     numObstacles = size - 2;
@@ -131,7 +131,7 @@ namespace FirstProject
 
         }
 
-        public Ocean(int numRows = 4, int numColumns = 4, int numPrey = 150, int numPredators = 20, int numObstacles = 75)
+        public Ocean(int numRows = 5, int numColumns = 5, int numPrey = 150, int numPredators = 20, int numObstacles = 75)
         {
             NumColumns = numColumns;
             NumRows = numRows;
@@ -224,10 +224,9 @@ namespace FirstProject
 
             do
             {
-                x = random.Next(0, numRows - 1);
-                y = random.Next(0, numColumns - 1);
+                x = random.Next(0, numRows);
+                y = random.Next(0, numColumns);
                 empty = cells[x, y].Offset;
-
             }
             while (cells[x, y] != null && cells[x, y].Image != '-');
 
