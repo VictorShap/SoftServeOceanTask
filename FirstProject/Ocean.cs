@@ -10,6 +10,7 @@ namespace FirstProject
         const int NumPreyDefault = 150;
         const int NumPredatorsDefault = 20;
         const int NumObstaclesDefault = 75;
+        const int Directions = 4;
 
         private int _numRows;
         private int _numColumns;
@@ -153,12 +154,12 @@ namespace FirstProject
 
         private void InitCells()
         {
-            Fabric(typeof(Obstacle), NumObstacles, CellType.CellTypes.Obstacle);
-            Fabric(typeof(Predator), NumPredators, CellType.CellTypes.Predator);
-            Fabric(typeof(Prey), NumPrey, CellType.CellTypes.Prey);
+            Factory(typeof(Obstacle), NumObstacles, CellType.CellTypes.Obstacle);
+            Factory(typeof(Predator), NumPredators, CellType.CellTypes.Predator);
+            Factory(typeof(Prey), NumPrey, CellType.CellTypes.Prey);
         }
 
-        private void Fabric(Type type, int amount, CellType.CellTypes cellType)
+        private void Factory(Type type, int amount, CellType.CellTypes cellType)
         {
             Cell cell;
             Coordinate empty;
@@ -262,7 +263,7 @@ namespace FirstProject
         private Coordinate GetNeighborWithImage(CellType.CellTypes neighborType, Coordinate currentCoordinate)
         {
             int count = 0;
-            Coordinate[] neighbors = new Coordinate[4];
+            Coordinate[] neighbors = new Coordinate[Directions];
 
             switch (neighborType)
             {
@@ -302,7 +303,7 @@ namespace FirstProject
         private Coordinate[] GetNeighbors(Coordinate currentCoordinate)
         {
             int count = 0;
-            Coordinate[] neighbors = new Coordinate[4];
+            Coordinate[] neighbors = new Coordinate[Directions];
             Coordinate north = North(currentCoordinate);
             Coordinate south = South(currentCoordinate);
             Coordinate east = East(currentCoordinate);
