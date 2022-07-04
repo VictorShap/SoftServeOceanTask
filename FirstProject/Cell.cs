@@ -29,17 +29,6 @@ namespace FirstProject
         {
             get => _image;
         }
-        public Ocean Owner
-        {
-            get
-            {
-                return _owner;
-            }
-            set
-            {
-                _owner = value;
-            }
-        }
 
         public Cell(Coordinate coordinate, Ocean ocean)
         {

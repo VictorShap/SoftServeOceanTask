@@ -1,9 +1,16 @@
 ﻿using System;
+using System.Reflection;
 
 namespace FirstProject
 {
     internal class Ocean
     {
+        const int NumRowsDefault = 5;
+        const int NumColumnsDefault = 5;
+        const int NumPreyDefault = 150;
+        const int NumPredatorsDefault = 20;
+        const int NumObstaclesDefault = 75;
+
         private int _numRows;
         private int _numColumns;
         private int _numPrey;
@@ -130,10 +137,14 @@ namespace FirstProject
             }
         }
 
-        public Ocean(int numRows = 5, int numColumns = 5, int numPrey = 150, int numPredators = 20, int numObstacles = 75)
+        public Ocean()
         {
-            NumColumns = numColumns;
-            NumRows = numRows;
+            _numColumns = NumColumnsDefault;
+            _numRows = NumRowsDefault;
+            _numObstacles = NumObstaclesDefault;
+            _numPredators = NumPredatorsDefault;
+            _numPrey = NumPreyDefault;
+
             size = NumRows * NumColumns;
             cells = new Cell[NumRows, NumColumns];
 
@@ -142,42 +153,46 @@ namespace FirstProject
 
         private void InitCells()
         {
-            Fabric(CellType.CellTypes.Obstacle);
-            Fabric(CellType.CellTypes.Predator);
-            Fabric(CellType.CellTypes.Prey);
+            Fabric(typeof(Obstacle), NumObstacles, CellType.CellTypes.Obstacle);
+            Fabric(typeof(Predator), NumPredators, CellType.CellTypes.Predator);
+            Fabric(typeof(Prey), NumPrey, CellType.CellTypes.Prey);
         }
 
-        private void Fabric(CellType.CellTypes type)
+        private void Fabric(Type type, int amount, CellType.CellTypes cellType)
         {
+            Cell cell;
             Coordinate empty;
+            for (int i = 0; i < amount; i++)
+            {
+                empty = GetEmptyCellCoord();
+                cell = Activator.CreateInstance(type, empty, this) as Cell;
 
-            switch (type)
+                AddCellWithSpecialType(cell, empty, cellType);
+            }
+        }
+
+        private void AddCellWithSpecialType(Cell cell, Coordinate empty, CellType.CellTypes cellType)
+        {
+            switch (cellType)
             {
                 case CellType.CellTypes.Obstacle:
-                    for (int i = 0; i < NumObstacles; i++)
-                    {
-                        empty = GetEmptyCellCoord();
-                        cells[empty.X, empty.Y] = new Obstacle(empty, this);
 
-                    }
+                    Obstacle obstacle = (Obstacle)cell;
+                    AssignCellAt(empty, obstacle);
 
                     break;
 
                 case CellType.CellTypes.Predator:
-                    for (int i = 0; i < NumPredators; i++)
-                    {
-                        empty = GetEmptyCellCoord();
-                        cells[empty.X, empty.Y] = new Predator(empty, this);
-                    }
+
+                    Predator predator = (Predator)cell;
+                    AssignCellAt(empty, predator);
 
                     break;
 
                 case CellType.CellTypes.Prey:
-                    for (int i = 0; i < NumPrey; i++)
-                    {
-                        empty = GetEmptyCellCoord();
-                        cells[empty.X, empty.Y] = new Prey(empty, this);
-                    }
+
+                    Prey prey = (Prey)cell;
+                    AssignCellAt(empty, prey);
 
                     break;
             }
@@ -393,16 +408,19 @@ namespace FirstProject
                 {
                     for (int row = 0; row < NumRows; row++)
                     {
+                        if (iteration == 0)
+                        {
+                            break;
+                        }
+
                         for (int column = 0; column < NumColumns; column++)
                         {
                             Cell сell = cells[row, column];
 
-                            if (сell == null || iteration == 0)
+                            if (сell == null)
                             {
                                 continue;
                             }
-
-                            cells[row, column].Owner = this;
 
                             cells[row, column].Process();
                         }

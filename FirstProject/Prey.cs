@@ -11,15 +11,15 @@ namespace FirstProject
         const int TimeToReproduceDefault = 6;
         protected int _timeToReproduce;
 
-        public Prey(Coordinate coordinate, Ocean ocean, int timeToReproduce = 6) : base(coordinate, ocean)
+        public Prey(Coordinate coordinate, Ocean ocean) : base(coordinate, ocean)
         {
             _image = 'f';
-            this._timeToReproduce = timeToReproduce;
+            this._timeToReproduce = TimeToReproduceDefault;
         }
 
         public override void Process()
         {
-            Coordinate toCoord = Owner.GetEmptyNeighborCoord(this.Offset);
+            Coordinate toCoord = _owner.GetEmptyNeighborCoord(this.Offset);
 
             if (isBeenIterated)
             {
@@ -30,7 +30,7 @@ namespace FirstProject
 
             if (--_timeToReproduce <= 0)
             {
-                Owner.AssignCellAt(toCoord, Reproduce(toCoord));
+                _owner.AssignCellAt(toCoord, Reproduce(toCoord));
                 _timeToReproduce = 6;
             }
             else
@@ -42,8 +42,8 @@ namespace FirstProject
 
         protected override Cell Reproduce(Coordinate coordinate)
         {
-            Owner.NumPrey = Owner.NumPrey + 1;
-            return new Prey(coordinate, this.Owner);
+            _owner.NumPrey = _owner.NumPrey + 1;
+            return new Prey(coordinate, this._owner);
         }
     }
 }

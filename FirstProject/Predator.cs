@@ -8,12 +8,13 @@ namespace FirstProject
 {
     internal class Predator : Prey
     {
+        const int TimeToReproduceDefault = 6;
         private int _timeToFeed;
 
-        public Predator(Coordinate coordinate, Ocean ocean, int timeToFeed = 6) : base(coordinate, ocean)
+        public Predator(Coordinate coordinate, Ocean ocean) : base(coordinate, ocean)
         {
             _image = 'S';
-            this._timeToFeed = timeToFeed;
+            this._timeToFeed = TimeToReproduceDefault;
         }
 
         public override void Process()
@@ -27,17 +28,17 @@ namespace FirstProject
 
             if (--_timeToFeed <= 0)
             {
-                Owner.NumPredators = Owner.NumPredators - 1;
+                _owner.NumPredators = _owner.NumPredators - 1;
 
-                Owner.AssignCellAt(Offset, null);
+                _owner.AssignCellAt(Offset, null);
             }
             else
             {
-                toCoordinate = Owner.GetNeighborPreyCoord(this.Offset);
+                toCoordinate = _owner.GetNeighborPreyCoord(this.Offset);
 
                 if (toCoordinate != Offset)
                 {
-                    Owner.NumPrey = Owner.NumPrey - 1;
+                    _owner.NumPrey = _owner.NumPrey - 1;
                     _timeToFeed = 6;
                     _timeToReproduce = _timeToReproduce - 1;
 
@@ -54,8 +55,8 @@ namespace FirstProject
 
         protected override Cell Reproduce(Coordinate coordinate)
         {
-            Owner.NumPredators = Owner.NumPredators + 1;
-            return new Predator(coordinate, this.Owner);
+            _owner.NumPredators = _owner.NumPredators + 1;
+            return new Predator(coordinate, this._owner);
         }
     }
 }
