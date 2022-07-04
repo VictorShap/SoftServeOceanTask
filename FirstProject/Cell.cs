@@ -20,7 +20,7 @@ namespace FirstProject
             {
                 return _offset;
             }
-            protected set
+            set
             {
                 _offset = value;
             }

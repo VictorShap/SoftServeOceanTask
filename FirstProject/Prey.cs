@@ -8,7 +8,7 @@ namespace FirstProject
 {
     internal class Prey : Cell
     {
-        protected const char DefaultPreyImage = 'f';
+        public const char DefaultPreyImage = 'f';
         protected const int TimeToReproduceDefault = 6;
         protected int _timeToReproduce;
 
@@ -31,8 +31,11 @@ namespace FirstProject
 
             if (--_timeToReproduce <= 0)
             {
-                _owner.AssignCellAt(toCoord, Reproduce(toCoord));
+                Cell redproducedCell = Reproduce(toCoord);
+                redproducedCell.isBeenIterated = true;
                 _timeToReproduce = TimeToReproduceDefault;
+
+                _owner.AssignCellAt(toCoord, redproducedCell);
             }
             else
             {
@@ -43,7 +46,10 @@ namespace FirstProject
 
         protected override Cell Reproduce(Coordinate coordinate)
         {
-            _owner.NumPrey = _owner.NumPrey + 1;
+            if (coordinate != Offset)
+            {
+                _owner.NumPrey = _owner.NumPrey + 1;
+            }
 
             return new Prey(coordinate, this._owner);
         }

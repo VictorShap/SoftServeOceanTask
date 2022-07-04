@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Collections.Generic;
 
 namespace FirstProject
 {
@@ -11,7 +12,7 @@ namespace FirstProject
         private const int NumPreyDefault = 150;
         private const int NumPredatorsDefault = 20;
         private const int NumObstaclesDefault = 75;
-        private const int Directions = 4;
+        private const int NumDirections = 4;
 
         private int _numRows;
         private int _numColumns;
@@ -155,12 +156,12 @@ namespace FirstProject
 
         private void InitializeCells()
         {
-            Factory(typeof(Obstacle), NumObstacles, CellType.CellTypes.Obstacle);
-            Factory(typeof(Predator), NumPredators, CellType.CellTypes.Predator);
-            Factory(typeof(Prey), NumPrey, CellType.CellTypes.Prey);
+            CreateCells(typeof(Obstacle), NumObstacles);
+            CreateCells(typeof(Predator), NumPredators);
+            CreateCells(typeof(Prey), NumPrey);
         }
 
-        private void Factory(Type type, int amount, CellType.CellTypes cellType)
+        private void CreateCells(Type type, int amount)
         {
             Cell cell;
             Coordinate empty;
@@ -170,34 +171,7 @@ namespace FirstProject
                 empty = GetEmptyCellCoord();
                 cell = Activator.CreateInstance(type, empty, this) as Cell;
 
-                FillCellsWithSpecialTypes(cell, empty, cellType);
-            }
-        }
-
-        private void FillCellsWithSpecialTypes(Cell cell, Coordinate empty, CellType.CellTypes cellType)
-        {
-            switch (cellType)
-            {
-                case CellType.CellTypes.Obstacle:
-
-                    Obstacle obstacle = (Obstacle)cell;
-                    AssignCellAt(empty, obstacle);
-
-                    break;
-
-                case CellType.CellTypes.Predator:
-
-                    Predator predator = (Predator)cell;
-                    AssignCellAt(empty, predator);
-
-                    break;
-
-                case CellType.CellTypes.Prey:
-
-                    Prey prey = (Prey)cell;
-                    AssignCellAt(empty, prey);
-
-                    break;
+                AssignCellAt(empty, cell);
             }
         }
 
@@ -262,18 +236,18 @@ namespace FirstProject
             DisplayBorder();
         }
 
-        private Coordinate GetNeighborWithImage(CellType.CellTypes neighborType, Coordinate currentCoordinate)
+        private Coordinate GetNeighborWithImage(CellTypes neighborType, Coordinate currentCoordinate)
         {
             int count = 0;
-            Coordinate[] neighbors = new Coordinate[Directions];
+            Coordinate[] neighbors = new Coordinate[NumDirections];
 
             switch (neighborType)
             {
-                case CellType.CellTypes.Prey:
+                case CellTypes.Prey:
 
                     foreach (Coordinate coordinate in GetNeighbors(currentCoordinate))
                     {
-                        if (GetCellAt(coordinate)?.Image == 'f')
+                        if (GetCellAt(coordinate)?.Image == Prey.DefaultPreyImage)
                         {
                             neighbors[count++] = coordinate;
                         }
@@ -281,7 +255,7 @@ namespace FirstProject
 
                     break;
 
-                case CellType.CellTypes.Empty:
+                case CellTypes.Empty:
 
                     foreach (Coordinate coordinate in GetNeighbors(currentCoordinate))
                     {
@@ -294,7 +268,7 @@ namespace FirstProject
                     break;
             }
 
-            if (neighbors.Length == 0)
+            if (count == 0)
             {
                 neighbors[count++] = currentCoordinate;
             }
@@ -302,53 +276,15 @@ namespace FirstProject
             return neighbors[RandomNumberGenerator.random.Next(0, count)];
         }
 
-        private Coordinate[] GetNeighbors(Coordinate currentCoordinate)
+        private IEnumerable<Coordinate> GetNeighbors(Coordinate currentCoordinate)
         {
-            int count = 0;
-            Coordinate[] neighbors = new Coordinate[Directions];
-            Coordinate north = North(currentCoordinate);
-            Coordinate south = South(currentCoordinate);
-            Coordinate east = East(currentCoordinate);
-            Coordinate west = West(currentCoordinate);
-
-            neighbors[count++] = north;
-            neighbors[count++] = south;
-            neighbors[count++] = east;
-            neighbors[count++] = west;
-
-            return neighbors;
-        }
-
-        private Cell GetCellAt(Coordinate coordinate)
-        {
-            return _cells[coordinate.X, coordinate.Y];
+            yield return North(currentCoordinate);
+            yield return South(currentCoordinate);
+            yield return East(currentCoordinate);
+            yield return West(currentCoordinate);
         }
 
         private Coordinate East(Coordinate currentCoordinate)
-        {
-            int x;
-            x = currentCoordinate.X == NumRows - 1 ? currentCoordinate.X : (currentCoordinate.X + 1);
-
-            return new Coordinate(x, currentCoordinate.Y);
-        }
-
-        private Coordinate West(Coordinate currentCoordinate)
-        {
-            int x;
-            x = currentCoordinate.X == 0 ? currentCoordinate.X : (currentCoordinate.X - 1);
-
-            return new Coordinate(x, currentCoordinate.Y);
-        }
-
-        private Coordinate North(Coordinate currentCoordinate)
-        {
-            int y;
-            y = currentCoordinate.Y == 0 ? currentCoordinate.Y : (currentCoordinate.Y - 1);
-
-            return new Coordinate(currentCoordinate.X, y);
-        }
-
-        private Coordinate South(Coordinate currentCoordinate)
         {
             int y;
             y = currentCoordinate.Y == NumColumns - 1 ? currentCoordinate.Y : (currentCoordinate.Y + 1);
@@ -356,14 +292,43 @@ namespace FirstProject
             return new Coordinate(currentCoordinate.X, y);
         }
 
+        private Coordinate West(Coordinate currentCoordinate)
+        {
+            int y;
+            y = currentCoordinate.Y == 0 ? currentCoordinate.Y : (currentCoordinate.Y - 1);
+
+            return new Coordinate(currentCoordinate.X, y);
+        }
+
+        private Coordinate North(Coordinate currentCoordinate)
+        {
+            int x;
+            x = currentCoordinate.X == 0 ? currentCoordinate.X : (currentCoordinate.X - 1);
+
+            return new Coordinate(x, currentCoordinate.Y);
+        }
+
+        private Coordinate South(Coordinate currentCoordinate)
+        {
+            int x;
+            x = currentCoordinate.X == NumRows - 1 ? currentCoordinate.X : (currentCoordinate.X + 1);
+
+            return new Coordinate(x, currentCoordinate.Y);
+        }
+
         public Coordinate GetEmptyNeighborCoord(Coordinate currentCoordinate)
         {
-            return GetNeighborWithImage(CellType.CellTypes.Empty, currentCoordinate);
+            return GetNeighborWithImage(CellTypes.Empty, currentCoordinate);
         }
 
         public Coordinate GetNeighborPreyCoord(Coordinate currentCoordinate)
         {
-            return GetNeighborWithImage(CellType.CellTypes.Prey, currentCoordinate);
+            return GetNeighborWithImage(CellTypes.Prey, currentCoordinate);
+        }
+
+        private Cell GetCellAt(Coordinate coordinate)
+        {
+            return _cells[coordinate.X, coordinate.Y];
         }
 
         public void MoveFrom(Coordinate from, Coordinate to)
@@ -371,6 +336,7 @@ namespace FirstProject
             if (from != to)
             {
                 Cell cell = GetCellAt(from);
+                cell.Offset = to;
 
                 AssignCellAt(from, null);
                 AssignCellAt(to, cell);

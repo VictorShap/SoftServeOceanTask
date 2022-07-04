@@ -56,7 +56,10 @@ namespace FirstProject
 
         protected override Cell Reproduce(Coordinate coordinate)
         {
-            _owner.NumPredators = _owner.NumPredators + 1;
+            if (coordinate != Offset)
+            {
+                _owner.NumPredators = _owner.NumPredators + 1;
+            }
 
             return new Predator(coordinate, this._owner);
         }

@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace FirstProject
 {
-
-    public enum CellTypes
+    public enum Directions
     {
-        Empty,
-        Prey,
-        Obstacle,
-        Predator
+        North,
+        South,
+        West,
+        East
     }
-
 }
