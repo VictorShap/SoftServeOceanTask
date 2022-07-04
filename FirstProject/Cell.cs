@@ -8,7 +8,7 @@ namespace FirstProject
 {
     internal abstract class Cell
     {
-        protected Ocean _owner;
+        protected readonly Ocean _owner;
         protected char _image;
         private Coordinate _offset;
 
@@ -33,7 +33,7 @@ namespace FirstProject
         public Cell(Coordinate coordinate, Ocean ocean)
         {
             _owner = ocean;
-            Offset = coordinate;
+            _offset = coordinate;
         }
 
         protected abstract Cell Reproduce(Coordinate coordinate);

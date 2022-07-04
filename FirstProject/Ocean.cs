@@ -5,12 +5,13 @@ namespace FirstProject
 {
     internal class Ocean
     {
-        const int NumRowsDefault = 5;
-        const int NumColumnsDefault = 5;
-        const int NumPreyDefault = 150;
-        const int NumPredatorsDefault = 20;
-        const int NumObstaclesDefault = 75;
-        const int Directions = 4;
+        private const char DefaultCellImage = '-';
+        private const int NumRowsDefault = 5;
+        private const int NumColumnsDefault = 5;
+        private const int NumPreyDefault = 150;
+        private const int NumPredatorsDefault = 20;
+        private const int NumObstaclesDefault = 75;
+        private const int Directions = 4;
 
         private int _numRows;
         private int _numColumns;
@@ -18,8 +19,8 @@ namespace FirstProject
         private int _numPredators;
         private int _numObstacles;
         private int _numIterations;
-        private int size;
-        private Cell[,] cells;
+        private int _size;
+        private Cell[,] _cells;
 
         private int NumObstacles
         {
@@ -29,10 +30,10 @@ namespace FirstProject
             }
             set
             {
-                if (value > size - 2 || value < 0)
+                if (value > _size - 2 || value < 0)
                 {
                     Console.WriteLine("Invalid value, so it will be set to maximum possible value");
-                    _numObstacles = size - 2;
+                    _numObstacles = _size - 2;
                 }
                 else
                 {
@@ -107,10 +108,10 @@ namespace FirstProject
             }
             set
             {
-                if (value > size - NumObstacles - NumPredators || value < 0)
+                if (value > _size - NumObstacles - NumPredators || value < 0)
                 {
                     Console.WriteLine("Invalid value, so it will be set to maximum possible value");
-                    _numPrey = size - NumObstacles - NumPredators;
+                    _numPrey = _size - NumObstacles - NumPredators;
                 }
                 else
                 {
@@ -126,10 +127,10 @@ namespace FirstProject
             }
             set
             {
-                if (value > size - NumObstacles - 1 || value < 0)
+                if (value > _size - NumObstacles - 1 || value < 0)
                 {
                     Console.WriteLine("Invalid value, so it will be set to maximum possible value");
-                    _numPredators = size - NumObstacles - 1;
+                    _numPredators = _size - NumObstacles - 1;
                 }
                 else
                 {
@@ -146,13 +147,13 @@ namespace FirstProject
             _numPredators = NumPredatorsDefault;
             _numPrey = NumPreyDefault;
 
-            size = NumRows * NumColumns;
-            cells = new Cell[NumRows, NumColumns];
+            _size = NumRows * NumColumns;
+            _cells = new Cell[NumRows, NumColumns];
 
             Run();
         }
 
-        private void InitCells()
+        private void InitializeCells()
         {
             Factory(typeof(Obstacle), NumObstacles, CellType.CellTypes.Obstacle);
             Factory(typeof(Predator), NumPredators, CellType.CellTypes.Predator);
@@ -163,16 +164,17 @@ namespace FirstProject
         {
             Cell cell;
             Coordinate empty;
+
             for (int i = 0; i < amount; i++)
             {
                 empty = GetEmptyCellCoord();
                 cell = Activator.CreateInstance(type, empty, this) as Cell;
 
-                AddCellWithSpecialType(cell, empty, cellType);
+                FillCellsWithSpecialTypes(cell, empty, cellType);
             }
         }
 
-        private void AddCellWithSpecialType(Cell cell, Coordinate empty, CellType.CellTypes cellType)
+        private void FillCellsWithSpecialTypes(Cell cell, Coordinate empty, CellType.CellTypes cellType)
         {
             switch (cellType)
             {
@@ -208,7 +210,7 @@ namespace FirstProject
                 x = RandomNumberGenerator.random.Next(0, _numRows);
                 y = RandomNumberGenerator.random.Next(0, _numColumns);
             }
-            while (cells[x, y] != null);
+            while (_cells[x, y] != null);
 
             return new Coordinate(x, y);
         }
@@ -234,14 +236,14 @@ namespace FirstProject
             {
                 for (int column = 0; column < NumColumns; column++)
                 {
-                    if (cells[row, column] == null)
+                    if (_cells[row, column] == null)
                     {
-                        Console.Write('-');
+                        Console.Write(DefaultCellImage);
                     }
                     else
                     {
-                        cells[row, column].isBeenIterated = false;
-                        cells[row, column].Display();
+                        _cells[row, column].isBeenIterated = false;
+                        _cells[row, column].Display();
                     }
 
                 }
@@ -319,7 +321,7 @@ namespace FirstProject
 
         private Cell GetCellAt(Coordinate coordinate)
         {
-            return cells[coordinate.X, coordinate.Y];
+            return _cells[coordinate.X, coordinate.Y];
         }
 
         private Coordinate East(Coordinate currentCoordinate)
@@ -377,31 +379,30 @@ namespace FirstProject
 
         public void AssignCellAt(Coordinate coordinate, Cell cell)
         {
-            cells[coordinate.X, coordinate.Y] = cell;
+            _cells[coordinate.X, coordinate.Y] = cell;
         }
 
         public void Run()
         {
-            Console.WriteLine("Enter the number of iterations (default=1000)");
+            Console.WriteLine("Enter the number of iterations");
             NumIterations = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("The number of iterations accepted " + NumIterations);
 
-
-            Console.WriteLine("Enter the number of obstacles (default=75)");
+            Console.WriteLine("Enter the number of obstacles");
             NumObstacles = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("The number of obstacles accepted " + NumObstacles);
 
-            Console.WriteLine("Enter the number of predators (default=20)");
+            Console.WriteLine("Enter the number of predators");
             NumPredators = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("The number of predators accepted " + NumPredators);
 
-            Console.WriteLine("Enter the number of prey (default=150)");
+            Console.WriteLine("Enter the number of prey");
             NumPrey = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("The number of prey accepted " + NumPrey);
 
             Console.WriteLine("Starting...");
 
-            InitCells();
+            InitializeCells();
 
             for (int iteration = 0; iteration < NumIterations; iteration++)
             {
@@ -416,14 +417,14 @@ namespace FirstProject
 
                         for (int column = 0; column < NumColumns; column++)
                         {
-                            Cell сell = cells[row, column];
+                            Cell сell = _cells[row, column];
 
                             if (сell == null)
                             {
                                 continue;
                             }
 
-                            cells[row, column].Process();
+                            _cells[row, column].Process();
                         }
                     }
 

@@ -8,9 +8,11 @@ namespace FirstProject
 {
     internal class Obstacle : Cell
     {
+        private const char DefaultObstacleImage = '#';
+
         public Obstacle(Coordinate coordinate, Ocean ocean) : base(coordinate, ocean)
         {
-            _image = '#';
+            _image = DefaultObstacleImage;
         }
 
         public override void Process()

@@ -8,12 +8,13 @@ namespace FirstProject
 {
     internal class Predator : Prey
     {
-        const int TimeToReproduceDefault = 6;
+        private const char DefaultPredatorImage = 'S';
+        private const int TimeToFeedDefault = 6;
         private int _timeToFeed;
 
         public Predator(Coordinate coordinate, Ocean ocean) : base(coordinate, ocean)
         {
-            _image = 'S';
+            _image = DefaultPredatorImage;
             this._timeToFeed = TimeToReproduceDefault;
         }
 
@@ -39,7 +40,7 @@ namespace FirstProject
                 if (toCoordinate != Offset)
                 {
                     _owner.NumPrey = _owner.NumPrey - 1;
-                    _timeToFeed = 6;
+                    _timeToFeed = TimeToFeedDefault;
                     _timeToReproduce = _timeToReproduce - 1;
 
                     _owner.MoveFrom(Offset, toCoordinate);
@@ -56,6 +57,7 @@ namespace FirstProject
         protected override Cell Reproduce(Coordinate coordinate)
         {
             _owner.NumPredators = _owner.NumPredators + 1;
+
             return new Predator(coordinate, this._owner);
         }
     }
