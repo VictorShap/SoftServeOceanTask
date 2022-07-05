@@ -40,9 +40,5 @@ namespace FirstProject
 
         public abstract void Process();
 
-        public void Display()
-        {
-            Console.Write(Image);
-        }
     }
 }

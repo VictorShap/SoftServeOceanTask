@@ -6,13 +6,14 @@ namespace FirstProject
 {
     internal class Ocean
     {
-        private const char DefaultCellImage = '-';
-        private const int NumRowsDefault = 5;
-        private const int NumColumnsDefault = 5;
+        private const int NumRowsDefault = 25;
+        private const int NumColumnsDefault = 70;
         private const int NumPreyDefault = 150;
         private const int NumPredatorsDefault = 20;
         private const int NumObstaclesDefault = 75;
+        private const int NumIterationsDefault = 1000;
         private const int NumDirections = 4;
+        public const char DefaultCellImage = '-';
 
         private int _numRows;
         private int _numColumns;
@@ -21,27 +22,9 @@ namespace FirstProject
         private int _numObstacles;
         private int _numIterations;
         private int _size;
-        private Cell[,] _cells;
+        private readonly Cell[,] _cells;
+        private readonly OceanViewer _supervisor;
 
-        private int NumObstacles
-        {
-            get
-            {
-                return _numObstacles;
-            }
-            set
-            {
-                if (value > _size - 2 || value < 0)
-                {
-                    Console.WriteLine("Invalid value, so it will be set to maximum possible value");
-                    _numObstacles = _size - 2;
-                }
-                else
-                {
-                    _numObstacles = value;
-                }
-            }
-        }
         private int NumIterations
         {
 
@@ -51,10 +34,10 @@ namespace FirstProject
             }
             set
             {
-                if (value > 1000 || value < 0)
+                if (value > NumIterationsDefault || value < 0)
                 {
-                    Console.WriteLine("Invalid value, so it will be set to maximum possible value");
-                    _numIterations = 1000;
+                    _supervisor.ValidateProperties();
+                    _numIterations = NumIterationsDefault;
                 }
                 else
                 {
@@ -71,10 +54,10 @@ namespace FirstProject
             }
             set
             {
-                if (value > 25 || value < 0)
+                if (value > NumRowsDefault || value < 0)
                 {
-                    Console.WriteLine("Invalid value, so it will be set to maximum possible value");
-                    _numRows = 25;
+                    _supervisor.ValidateProperties();
+                    _numRows = NumRowsDefault;
                 }
                 else
                 {
@@ -90,10 +73,10 @@ namespace FirstProject
             }
             set
             {
-                if (value > 70 || value < 0)
+                if (value > NumColumnsDefault || value < 0)
                 {
-                    Console.WriteLine("Invalid value, so it will be set to maximum possible value");
-                    _numColumns = 70;
+                    _supervisor.ValidateProperties();
+                    _numColumns = NumColumnsDefault;
                 }
                 else
                 {
@@ -111,7 +94,7 @@ namespace FirstProject
             {
                 if (value > _size - NumObstacles - NumPredators || value < 0)
                 {
-                    Console.WriteLine("Invalid value, so it will be set to maximum possible value");
+                    _supervisor.ValidateProperties();
                     _numPrey = _size - NumObstacles - NumPredators;
                 }
                 else
@@ -130,12 +113,31 @@ namespace FirstProject
             {
                 if (value > _size - NumObstacles - 1 || value < 0)
                 {
-                    Console.WriteLine("Invalid value, so it will be set to maximum possible value");
+                    _supervisor.ValidateProperties();
                     _numPredators = _size - NumObstacles - 1;
                 }
                 else
                 {
                     _numPredators = value;
+                }
+            }
+        }
+        public int NumObstacles
+        {
+            get
+            {
+                return _numObstacles;
+            }
+            set
+            {
+                if (value > _size - 2 || value < 0)
+                {
+                    _supervisor.ValidateProperties();
+                    _numObstacles = _size - 2;
+                }
+                else
+                {
+                    _numObstacles = value;
                 }
             }
         }
@@ -147,11 +149,37 @@ namespace FirstProject
             _numObstacles = NumObstaclesDefault;
             _numPredators = NumPredatorsDefault;
             _numPrey = NumPreyDefault;
+            _numIterations = NumIterationsDefault;
 
             _size = NumRows * NumColumns;
             _cells = new Cell[NumRows, NumColumns];
+            _supervisor = new OceanViewer(this);
 
             Run();
+        }
+
+        public Cell this[Coordinate coordinate]
+        {
+            get
+            {
+                return _cells[coordinate.X, coordinate.Y];
+            }
+            set
+            {
+                _cells[coordinate.X, coordinate.Y] = value;
+            }
+        }
+
+        public Cell this[int x, int y]
+        {
+            get
+            {
+                return this[new Coordinate(x, y)];
+            }
+            set
+            {
+                this[new Coordinate(x, y)] = value;
+            }
         }
 
         private void InitializeCells()
@@ -171,7 +199,7 @@ namespace FirstProject
                 empty = GetEmptyCellCoord();
                 cell = Activator.CreateInstance(type, empty, this) as Cell;
 
-                AssignCellAt(empty, cell);
+                this[empty] = cell;
             }
         }
 
@@ -189,53 +217,6 @@ namespace FirstProject
             return new Coordinate(x, y);
         }
 
-        private void DisplayBorder()
-        {
-            for (int column = 0; column < Console.WindowWidth; column++)
-            {
-                if (column == Console.WindowWidth - 1 || column == 0)
-                {
-                    Console.Write("\n");
-                }
-                else
-                {
-                    Console.Write("*");
-                }
-            }
-        }
-
-        private void DisplayCells()
-        {
-            for (int row = 0; row < NumRows; row++)
-            {
-                for (int column = 0; column < NumColumns; column++)
-                {
-                    if (_cells[row, column] == null)
-                    {
-                        Console.Write(DefaultCellImage);
-                    }
-                    else
-                    {
-                        _cells[row, column].isBeenIterated = false;
-                        _cells[row, column].Display();
-                    }
-
-                }
-
-                Console.Write("\n");
-            }
-        }
-
-        private void DisplayStats(int iteration)
-        {
-            Console.Write("Iteration number: " + ++iteration);
-            Console.Write(" Obstacles:" + NumObstacles);
-            Console.Write(" Predators:" + NumPredators);
-            Console.Write(" Prey:" + NumPrey);
-
-            DisplayBorder();
-        }
-
         private Coordinate GetNeighborWithImage(CellTypes neighborType, Coordinate currentCoordinate)
         {
             int count = 0;
@@ -247,7 +228,7 @@ namespace FirstProject
 
                     foreach (Coordinate coordinate in GetNeighbors(currentCoordinate))
                     {
-                        if (GetCellAt(coordinate)?.Image == Prey.DefaultPreyImage)
+                        if (this[coordinate]?.Image == Prey.DefaultPreyImage)
                         {
                             neighbors[count++] = coordinate;
                         }
@@ -259,7 +240,7 @@ namespace FirstProject
 
                     foreach (Coordinate coordinate in GetNeighbors(currentCoordinate))
                     {
-                        if (GetCellAt(coordinate) == null)
+                        if (this[coordinate] == null)
                         {
                             neighbors[count++] = coordinate;
                         }
@@ -326,47 +307,33 @@ namespace FirstProject
             return GetNeighborWithImage(CellTypes.Prey, currentCoordinate);
         }
 
-        private Cell GetCellAt(Coordinate coordinate)
-        {
-            return _cells[coordinate.X, coordinate.Y];
-        }
-
         public void MoveFrom(Coordinate from, Coordinate to)
         {
             if (from != to)
             {
-                Cell cell = GetCellAt(from);
+                Cell cell = this[from];
                 cell.Offset = to;
 
-                AssignCellAt(from, null);
-                AssignCellAt(to, cell);
+                this[from] = null;
+                this[to] = cell;
             }
-        }
-
-        public void AssignCellAt(Coordinate coordinate, Cell cell)
-        {
-            _cells[coordinate.X, coordinate.Y] = cell;
         }
 
         public void Run()
         {
-            Console.WriteLine("Enter the number of iterations");
-            NumIterations = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("The number of iterations accepted " + NumIterations);
+            try
+            {
+                NumIterations = _supervisor.RequestValuesAndAssignThem("iterations");
+                NumObstacles = _supervisor.RequestValuesAndAssignThem("obstacles");
+                NumPredators = _supervisor.RequestValuesAndAssignThem("predators");
+                NumPrey = _supervisor.RequestValuesAndAssignThem("prey");
+            }
+            catch (FormatException)
+            {
+                _supervisor.ValidateInput();
+            }
 
-            Console.WriteLine("Enter the number of obstacles");
-            NumObstacles = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("The number of obstacles accepted " + NumObstacles);
-
-            Console.WriteLine("Enter the number of predators");
-            NumPredators = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("The number of predators accepted " + NumPredators);
-
-            Console.WriteLine("Enter the number of prey");
-            NumPrey = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("The number of prey accepted " + NumPrey);
-
-            Console.WriteLine("Starting...");
+            _supervisor.Start();
 
             InitializeCells();
 
@@ -394,17 +361,15 @@ namespace FirstProject
                         }
                     }
 
-                    DisplayStats(iteration);
-                    DisplayCells();
-                    DisplayBorder();
+                    _supervisor.DisplayStats(iteration);
+                    _supervisor.DisplayCells(NumRows, NumColumns);
+                    _supervisor.DisplayBorder();
 
-                    Console.Write("Press any key to continue");
-                    Console.ReadKey();
+                    _supervisor.Continue();
                 }
             }
 
-            Console.WriteLine("Simulation has been ended");
-            Console.ReadKey();
+            _supervisor.End();
         }
     }
 }

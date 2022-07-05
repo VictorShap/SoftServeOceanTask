@@ -35,7 +35,7 @@ namespace FirstProject
                 redproducedCell.isBeenIterated = true;
                 _timeToReproduce = TimeToReproduceDefault;
 
-                _owner.AssignCellAt(toCoord, redproducedCell);
+                _owner[toCoord] = redproducedCell;
             }
             else
             {

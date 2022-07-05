@@ -31,7 +31,7 @@ namespace FirstProject
             {
                 _owner.NumPredators = _owner.NumPredators - 1;
 
-                _owner.AssignCellAt(Offset, null);
+                _owner[Offset] = null;
             }
             else
             {
