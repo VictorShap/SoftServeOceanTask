@@ -8,21 +8,29 @@ namespace FirstProject
 {
     internal class Predator : Prey
     {
+        #region CONSTS
         private const char DefaultPredatorImage = 'S';
         private const int TimeToFeedDefault = 6;
-        private int _timeToFeed;
+        #endregion
 
+        #region FIELDS
+        private int _timeToFeed;
+        #endregion
+
+        #region CTORS
         public Predator(Coordinate coordinate, Ocean ocean) : base(coordinate, ocean)
         {
             _image = DefaultPredatorImage;
             this._timeToFeed = TimeToReproduceDefault;
         }
+        #endregion
 
+        #region METHODS
         public override void Process()
         {
             Coordinate toCoordinate;
 
-            if (isBeenIterated)
+            if (wasIterated)
             {
                 return;
             }
@@ -30,7 +38,6 @@ namespace FirstProject
             if (--_timeToFeed <= 0)
             {
                 _owner.NumPredators = _owner.NumPredators - 1;
-
                 _owner[Offset] = null;
             }
             else
@@ -51,7 +58,7 @@ namespace FirstProject
                 }
             }
 
-            isBeenIterated = true;
+            wasIterated = true;
         }
 
         protected override Cell Reproduce(Coordinate coordinate)
@@ -63,5 +70,6 @@ namespace FirstProject
 
             return new Predator(coordinate, this._owner);
         }
+        #endregion
     }
 }

@@ -46,7 +46,8 @@
     <Compile Include="Cell.cs" />
     <Compile Include="Coordinate.cs" />
     <Compile Include="CellType.cs" />
-    <Compile Include="Direction.cs" />
+    <Compile Include="GameState.cs" />
+    <Compile Include="IOceanViewer.cs" />
     <Compile Include="Obstacle.cs" />
     <Compile Include="Ocean.cs" />
     <Compile Include="OceanViewer.cs" />

@@ -6,15 +6,20 @@ using System.Threading.Tasks;
 
 namespace FirstProject
 {
-    internal class OceanViewer
+    internal class OceanViewer : IOceanViewer
     {
+        #region CONSTS
         private readonly Ocean _ocean;
+        #endregion
 
+        #region CTORS
         public OceanViewer(Ocean ocean)
         {
             _ocean = ocean;
         }
+        #endregion
 
+        #region METHODS
         public int RequestValuesAndAssignThem(string s)
         {
             int number;
@@ -24,17 +29,6 @@ namespace FirstProject
             Console.WriteLine("The number of {0} accepted " + number, s);
 
             return number;
-        }
-
-        public void Start(string message = "Starting...")
-        {
-            Console.WriteLine(message);
-        }
-
-        public void End(string message = "Simulation has been ended")
-        {
-            Console.WriteLine(message);
-            Console.ReadKey();
         }
 
         public void DisplayStats(int iteration)
@@ -59,7 +53,7 @@ namespace FirstProject
                     }
                     else
                     {
-                        _ocean[row, column].isBeenIterated = false;
+                        _ocean[row, column].wasIterated = false;
                         Console.Write(_ocean[row, column].Image);
                     }
 
@@ -84,20 +78,43 @@ namespace FirstProject
             }
         }
 
-        public void Continue(string message = "Press any key to continue")
+        public void DisplayGameState(GameStates gameState)
         {
-            Console.Write(message);
-            Console.ReadKey();
+            switch (gameState)
+            {
+                case GameStates.Start:
+
+                    Console.WriteLine("Starting...");
+
+                    break;
+
+                case GameStates.Continue:
+
+                    Console.Write("Press any key to continue");
+                    Console.ReadKey();
+
+                    break;
+
+                case GameStates.End:
+
+                    Console.WriteLine("Simulation has been ended");
+                    Console.ReadKey();
+
+                    break;
+            }
         }
 
-        public void ValidateProperties()
+        public void DisplayValidationMessage(bool wasFormatException)
         {
-            Console.WriteLine("Invalid value, so it will be set to maximum possible value");
+            if (wasFormatException)
+            {
+                Console.WriteLine("Invalid input, so everything will be set to its default value");
+            }
+            else
+            {
+                Console.WriteLine("Invalid value, so it will be set to maximum possible value");
+            }
         }
-
-        public void ValidateInput()
-        {
-            Console.WriteLine("Invalid input, so everything will be set to its default value");
-        }
+        #endregion
     }
 }

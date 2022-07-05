@@ -6,6 +6,7 @@ namespace FirstProject
 {
     internal class Ocean
     {
+        #region CONSTS
         private const int NumRowsDefault = 25;
         private const int NumColumnsDefault = 70;
         private const int NumPreyDefault = 150;
@@ -14,7 +15,14 @@ namespace FirstProject
         private const int NumIterationsDefault = 1000;
         private const int NumDirections = 4;
         public const char DefaultCellImage = '-';
+        #endregion
 
+        #region READONLY
+        private readonly Cell[,] _cells;
+        private readonly IOceanViewer _supervisor;
+        #endregion
+
+        #region PRIVATE FIELDS
         private int _numRows;
         private int _numColumns;
         private int _numPrey;
@@ -22,9 +30,9 @@ namespace FirstProject
         private int _numObstacles;
         private int _numIterations;
         private int _size;
-        private readonly Cell[,] _cells;
-        private readonly OceanViewer _supervisor;
+        #endregion
 
+        #region PRIVATE PROPERTIES
         private int NumIterations
         {
 
@@ -36,7 +44,7 @@ namespace FirstProject
             {
                 if (value > NumIterationsDefault || value < 0)
                 {
-                    _supervisor.ValidateProperties();
+                    _supervisor.DisplayValidationMessage(false);
                     _numIterations = NumIterationsDefault;
                 }
                 else
@@ -56,7 +64,7 @@ namespace FirstProject
             {
                 if (value > NumRowsDefault || value < 0)
                 {
-                    _supervisor.ValidateProperties();
+                    _supervisor.DisplayValidationMessage(false);
                     _numRows = NumRowsDefault;
                 }
                 else
@@ -75,7 +83,7 @@ namespace FirstProject
             {
                 if (value > NumColumnsDefault || value < 0)
                 {
-                    _supervisor.ValidateProperties();
+                    _supervisor.DisplayValidationMessage(false);
                     _numColumns = NumColumnsDefault;
                 }
                 else
@@ -84,6 +92,9 @@ namespace FirstProject
                 }
             }
         }
+        #endregion
+
+        #region PUBLIC PROPERTIES
         public int NumPrey
         {
             get
@@ -94,7 +105,7 @@ namespace FirstProject
             {
                 if (value > _size - NumObstacles - NumPredators || value < 0)
                 {
-                    _supervisor.ValidateProperties();
+                    _supervisor.DisplayValidationMessage(false);
                     _numPrey = _size - NumObstacles - NumPredators;
                 }
                 else
@@ -113,7 +124,7 @@ namespace FirstProject
             {
                 if (value > _size - NumObstacles - 1 || value < 0)
                 {
-                    _supervisor.ValidateProperties();
+                    _supervisor.DisplayValidationMessage(false);
                     _numPredators = _size - NumObstacles - 1;
                 }
                 else
@@ -132,7 +143,7 @@ namespace FirstProject
             {
                 if (value > _size - 2 || value < 0)
                 {
-                    _supervisor.ValidateProperties();
+                    _supervisor.DisplayValidationMessage(false);
                     _numObstacles = _size - 2;
                 }
                 else
@@ -141,7 +152,9 @@ namespace FirstProject
                 }
             }
         }
+        #endregion
 
+        #region CTORS
         public Ocean()
         {
             _numColumns = NumColumnsDefault;
@@ -157,7 +170,9 @@ namespace FirstProject
 
             Run();
         }
+        #endregion
 
+        #region INDEXERS
         public Cell this[Coordinate coordinate]
         {
             get
@@ -181,7 +196,11 @@ namespace FirstProject
                 this[new Coordinate(x, y)] = value;
             }
         }
+        #endregion
 
+        #region METHODS
+
+        #region METHODS FOR CREATING CELLS
         private void InitializeCells()
         {
             CreateCells(typeof(Obstacle), NumObstacles);
@@ -216,7 +235,9 @@ namespace FirstProject
 
             return new Coordinate(x, y);
         }
+        #endregion;
 
+        #region METHODS FOR GETTING NEIGHBORS
         private Coordinate GetNeighborWithImage(CellTypes neighborType, Coordinate currentCoordinate)
         {
             int count = 0;
@@ -296,7 +317,9 @@ namespace FirstProject
 
             return new Coordinate(x, currentCoordinate.Y);
         }
+        #endregion
 
+        #region PUBLIC METHODS
         public Coordinate GetEmptyNeighborCoord(Coordinate currentCoordinate)
         {
             return GetNeighborWithImage(CellTypes.Empty, currentCoordinate);
@@ -330,11 +353,10 @@ namespace FirstProject
             }
             catch (FormatException)
             {
-                _supervisor.ValidateInput();
+                _supervisor.DisplayValidationMessage(true);
             }
 
-            _supervisor.Start();
-
+            _supervisor.DisplayGameState(GameStates.Start);
             InitializeCells();
 
             for (int iteration = 0; iteration < NumIterations; iteration++)
@@ -365,11 +387,14 @@ namespace FirstProject
                     _supervisor.DisplayCells(NumRows, NumColumns);
                     _supervisor.DisplayBorder();
 
-                    _supervisor.Continue();
+                    _supervisor.DisplayGameState(GameStates.Continue);
                 }
             }
 
-            _supervisor.End();
+            _supervisor.DisplayGameState(GameStates.End);
         }
+        #endregion
+
+        #endregion
     }
 }

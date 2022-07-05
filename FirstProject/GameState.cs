@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace FirstProject
 {
-    public enum Directions
+    public enum GameStates
     {
-        North,
-        South,
-        West,
-        East
+        Start,
+        Continue,
+        End
     }
 }

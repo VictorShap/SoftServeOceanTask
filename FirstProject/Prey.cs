@@ -8,31 +8,39 @@ namespace FirstProject
 {
     internal class Prey : Cell
     {
+        #region CONSTS
         public const char DefaultPreyImage = 'f';
         protected const int TimeToReproduceDefault = 6;
-        protected int _timeToReproduce;
+        #endregion
 
+        #region FIELDS
+        protected int _timeToReproduce;
+        #endregion
+
+        #region CTORS
         public Prey(Coordinate coordinate, Ocean ocean) : base(coordinate, ocean)
         {
             _image = DefaultPreyImage;
             this._timeToReproduce = TimeToReproduceDefault;
         }
+        #endregion
 
+        #region METHODS
         public override void Process()
         {
             Coordinate toCoord = _owner.GetEmptyNeighborCoord(this.Offset);
 
-            if (isBeenIterated)
+            if (wasIterated)
             {
                 return;
             }
 
-            isBeenIterated = true;
+            wasIterated = true;
 
             if (--_timeToReproduce <= 0)
             {
                 Cell redproducedCell = Reproduce(toCoord);
-                redproducedCell.isBeenIterated = true;
+                redproducedCell.wasIterated = true;
                 _timeToReproduce = TimeToReproduceDefault;
 
                 _owner[toCoord] = redproducedCell;
@@ -53,5 +61,6 @@ namespace FirstProject
 
             return new Prey(coordinate, this._owner);
         }
+        #endregion
     }
 }
