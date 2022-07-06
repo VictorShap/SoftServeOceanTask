@@ -1,5 +1,5 @@
 ﻿
-namespace FirstProject
+namespace OceanSimulationInConsole
 {
     internal class Predator : Prey
     {
@@ -13,7 +13,7 @@ namespace FirstProject
         #endregion
 
         #region CTORS
-        public Predator(Coordinate coordinate, Ocean ocean) : base(coordinate, ocean)
+        public Predator(Coordinate coordinate, IOcean ocean) : base(coordinate, ocean)
         {
             _image = DefaultPredatorImage;
             this._timeToFeed = TimeToReproduceDefault;
@@ -25,7 +25,7 @@ namespace FirstProject
         {
             Coordinate toCoordinate;
 
-            if (wasIterated)
+            if (WasIterated)
             {
                 return;
             }
@@ -37,7 +37,7 @@ namespace FirstProject
             }
             else
             {
-                toCoordinate = _owner.GetNeighborPreyCoord(this.Offset);
+                toCoordinate = _owner.GetNeighborPreyCoord(Offset);
 
                 if (toCoordinate != Offset)
                 {
@@ -53,7 +53,7 @@ namespace FirstProject
                 }
             }
 
-            wasIterated = true;
+            WasIterated = true;
         }
 
         protected override Cell Reproduce(Coordinate coordinate)
@@ -63,7 +63,7 @@ namespace FirstProject
                 _owner.NumPredators = _owner.NumPredators + 1;
             }
 
-            return new Predator(coordinate, this._owner);
+            return new Predator(coordinate, _owner);
         }
         #endregion
     }

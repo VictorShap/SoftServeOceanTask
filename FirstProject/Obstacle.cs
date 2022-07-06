@@ -1,6 +1,6 @@
 ﻿
 
-namespace FirstProject
+namespace OceanSimulationInConsole
 {
     internal class Obstacle : Cell
     {
@@ -9,7 +9,7 @@ namespace FirstProject
         #endregion
 
         #region CTORS
-        public Obstacle(Coordinate coordinate, Ocean ocean) : base(coordinate, ocean)
+        public Obstacle(Coordinate coordinate, IOcean ocean) : base(coordinate, ocean)
         {
             _image = DefaultObstacleImage;
         }

@@ -1,14 +1,14 @@
 ﻿
-namespace FirstProject
+namespace OceanSimulationInConsole
 {
     internal abstract class Cell
     {
         #region Fields
-        protected readonly Ocean _owner;
+        protected readonly IOcean _owner;
         protected char _image;
         private Coordinate _offset;
 
-        public bool wasIterated = false;
+        protected bool _wasIterated = false;
         #endregion
 
         #region Properties
@@ -27,10 +27,11 @@ namespace FirstProject
         {
             get => _image;
         }
+        public bool WasIterated { get => _wasIterated; set => _wasIterated = value; }
         #endregion
 
         #region CTORS
-        public Cell(Coordinate coordinate, Ocean ocean)
+        public Cell(Coordinate coordinate, IOcean ocean)
         {
             _owner = ocean;
             _offset = coordinate;

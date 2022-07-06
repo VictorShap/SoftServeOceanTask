@@ -1,5 +1,5 @@
 ﻿
-namespace FirstProject
+namespace OceanSimulationInConsole
 {
     internal class Program
     {

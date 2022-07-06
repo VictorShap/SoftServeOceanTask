@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FirstProject
+namespace OceanSimulationInConsole
 {
-    internal class Ocean
+    internal class Ocean : IOceanLength, IOcean
     {
         #region Consts
         private const int NumRowsDefault = 25;
@@ -19,6 +19,7 @@ namespace FirstProject
         #region Readonly
         private readonly Cell[,] _cells;
         private readonly IOceanViewer _supervisor;
+        private readonly RandomNumberGenerator _randomNumberGenerator;
         #endregion
 
         #region Private fields
@@ -53,7 +54,10 @@ namespace FirstProject
             }
 
         }
-        private int NumRows
+        #endregion
+
+        #region Public properties
+        public int NumRows
         {
             get
             {
@@ -72,7 +76,7 @@ namespace FirstProject
                 }
             }
         }
-        private int NumColumns
+        public int NumColumns
         {
             get
             {
@@ -91,9 +95,6 @@ namespace FirstProject
                 }
             }
         }
-        #endregion
-
-        #region Public properties
         public int NumPrey
         {
             get
@@ -166,6 +167,7 @@ namespace FirstProject
             _size = NumRows * NumColumns;
             _cells = new Cell[NumRows, NumColumns];
             _supervisor = new OceanViewer(this);
+            _randomNumberGenerator = new RandomNumberGenerator(this);
 
             Run();
         }
@@ -199,9 +201,70 @@ namespace FirstProject
 
         #region Methods
 
+        #region Methods for launching
+        private void Run()
+        {
+
+            InitializeCells();
+
+            for (int iteration = 0; iteration < NumIterations; iteration++)
+            {
+                if (NumPredators > 0 && NumPrey > 0)
+                {
+                    for (int row = 0; row < NumRows; row++)
+                    {
+                        if (iteration == 0)
+                        {
+                            break;
+                        }
+
+                        for (int column = 0; column < NumColumns; column++)
+                        {
+                            Cell сell = _cells[row, column];
+
+                            if (сell == null)
+                            {
+                                continue;
+                            }
+
+                            _cells[row, column].Process();
+                        }
+                    }
+                }
+
+                Iterate(iteration);
+            }
+
+            _supervisor.DisplayGameState(GameState.End);
+        }
+
+        private void Iterate(int iteration)
+        {
+            _supervisor.DisplayStats(iteration);
+            _supervisor.DisplayCells(NumRows, NumColumns);
+            _supervisor.DisplayBorder();
+
+            _supervisor.DisplayGameState(GameState.Continue);
+        }
+        #endregion
+
         #region Methods for creating cells
         private void InitializeCells()
         {
+            try
+            {
+                NumIterations = _supervisor.RequestValuesAndAssignThem("iterations");
+                NumObstacles = _supervisor.RequestValuesAndAssignThem("obstacles");
+                NumPredators = _supervisor.RequestValuesAndAssignThem("predators");
+                NumPrey = _supervisor.RequestValuesAndAssignThem("prey");
+            }
+            catch (FormatException)
+            {
+                _supervisor.DisplayValidationMessage(true);
+            }
+
+            _supervisor.DisplayGameState(GameState.Start);
+
             CreateCells(typeof(Obstacle), NumObstacles);
             CreateCells(typeof(Predator), NumPredators);
             CreateCells(typeof(Prey), NumPrey);
@@ -214,25 +277,11 @@ namespace FirstProject
 
             for (int i = 0; i < amount; i++)
             {
-                empty = GetEmptyCellCoord();
+                empty = _randomNumberGenerator.GetEmptyCellCoord();
                 cell = Activator.CreateInstance(type, empty, this) as Cell;
 
                 this[empty] = cell;
             }
-        }
-
-        private Coordinate GetEmptyCellCoord()
-        {
-            int x, y;
-
-            do
-            {
-                x = RandomNumberGenerator.random.Next(0, _numRows);
-                y = RandomNumberGenerator.random.Next(0, _numColumns);
-            }
-            while (_cells[x, y] != null);
-
-            return new Coordinate(x, y);
         }
         #endregion;
 
@@ -274,7 +323,7 @@ namespace FirstProject
                 neighbors[count++] = currentCoordinate;
             }
 
-            return neighbors[RandomNumberGenerator.random.Next(0, count)];
+            return neighbors[_randomNumberGenerator.Random.Next(0, count)];
         }
 
         private IEnumerable<Coordinate> GetNeighbors(Coordinate currentCoordinate)
@@ -339,58 +388,6 @@ namespace FirstProject
                 this[from] = null;
                 this[to] = cell;
             }
-        }
-
-        public void Run()
-        {
-            try
-            {
-                NumIterations = _supervisor.RequestValuesAndAssignThem("iterations");
-                NumObstacles = _supervisor.RequestValuesAndAssignThem("obstacles");
-                NumPredators = _supervisor.RequestValuesAndAssignThem("predators");
-                NumPrey = _supervisor.RequestValuesAndAssignThem("prey");
-            }
-            catch (FormatException)
-            {
-                _supervisor.DisplayValidationMessage(true);
-            }
-
-            _supervisor.DisplayGameState(GameState.Start);
-            InitializeCells();
-
-            for (int iteration = 0; iteration < NumIterations; iteration++)
-            {
-                if (NumPredators > 0 && NumPrey > 0)
-                {
-                    for (int row = 0; row < NumRows; row++)
-                    {
-                        if (iteration == 0)
-                        {
-                            break;
-                        }
-
-                        for (int column = 0; column < NumColumns; column++)
-                        {
-                            Cell сell = _cells[row, column];
-
-                            if (сell == null)
-                            {
-                                continue;
-                            }
-
-                            _cells[row, column].Process();
-                        }
-                    }
-
-                    _supervisor.DisplayStats(iteration);
-                    _supervisor.DisplayCells(NumRows, NumColumns);
-                    _supervisor.DisplayBorder();
-
-                    _supervisor.DisplayGameState(GameState.Continue);
-                }
-            }
-
-            _supervisor.DisplayGameState(GameState.End);
         }
         #endregion
 

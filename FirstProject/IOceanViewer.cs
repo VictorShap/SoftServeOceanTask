@@ -1,5 +1,5 @@
 ﻿
-namespace FirstProject
+namespace OceanSimulationInConsole
 {
     internal interface IOceanViewer
     {

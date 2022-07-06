@@ -1,21 +1,21 @@
 ﻿using System;
 
-namespace FirstProject
+namespace OceanSimulationInConsole
 {
     internal class OceanViewer : IOceanViewer
     {
-        #region CONSTS
-        private readonly Ocean _ocean;
+        #region Consts
+        private readonly IOceanNumberOfAllObjects _ocean;
         #endregion
 
         #region CTORS
-        public OceanViewer(Ocean ocean)
+        public OceanViewer(IOceanNumberOfAllObjects ocean)
         {
             _ocean = ocean;
         }
         #endregion
 
-        #region METHODS
+        #region Methods
         public int RequestValuesAndAssignThem(string s)
         {
             int number;
@@ -49,7 +49,7 @@ namespace FirstProject
                     }
                     else
                     {
-                        _ocean[row, column].wasIterated = false;
+                        _ocean[row, column].WasIterated = false;
                         Console.Write(_ocean[row, column].Image);
                     }
 
