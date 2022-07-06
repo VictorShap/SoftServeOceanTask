@@ -1,9 +1,8 @@
 ﻿
-
 namespace FirstProject
 {
 
-    public enum CellTypes
+    public enum CellType
     {
         Empty,
         Prey,

@@ -1,8 +1,7 @@
 ﻿
-
 namespace FirstProject
 {
-    public enum GameStates
+    public enum GameState
     {
         Start,
         Continue,

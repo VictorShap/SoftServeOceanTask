@@ -3,7 +3,7 @@ namespace FirstProject
 {
     internal struct Coordinate
     {
-        #region FIELDS
+        #region Fields
         public int X { get; set; }
         public int Y { get; set; }
         #endregion
@@ -16,7 +16,7 @@ namespace FirstProject
         }
         #endregion
 
-        #region OPERATORS
+        #region Operators
         public static bool operator ==(Coordinate coordinate1, Coordinate coordinate2)
         {
             return (coordinate1.X == coordinate2.X) && (coordinate1.Y == coordinate2.Y);

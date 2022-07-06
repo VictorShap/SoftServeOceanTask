@@ -1,12 +1,11 @@
 ﻿
-
 namespace FirstProject
 {
     internal interface IOceanViewer
     {
         int RequestValuesAndAssignThem(string valueName);
 
-        void DisplayGameState(GameStates gameState);
+        void DisplayGameState(GameState gameState);
 
         void DisplayStats(int iteration);
 

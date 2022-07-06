@@ -3,12 +3,12 @@ namespace FirstProject
 {
     internal class Prey : Cell
     {
-        #region CONSTS
+        #region Consts
         public const char DefaultPreyImage = 'f';
         protected const int TimeToReproduceDefault = 6;
         #endregion
 
-        #region FIELDS
+        #region Fields
         protected int _timeToReproduce;
         #endregion
 
@@ -20,7 +20,7 @@ namespace FirstProject
         }
         #endregion
 
-        #region METHODS
+        #region Methods
         public override void Process()
         {
             Coordinate toCoord = _owner.GetEmptyNeighborCoord(this.Offset);

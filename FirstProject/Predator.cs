@@ -1,15 +1,14 @@
 ﻿
-
 namespace FirstProject
 {
     internal class Predator : Prey
     {
-        #region CONSTS
+        #region Consts
         private const char DefaultPredatorImage = 'S';
         private const int TimeToFeedDefault = 6;
         #endregion
 
-        #region FIELDS
+        #region Fields
         private int _timeToFeed;
         #endregion
 
@@ -21,7 +20,7 @@ namespace FirstProject
         }
         #endregion
 
-        #region METHODS
+        #region Methods
         public override void Process()
         {
             Coordinate toCoordinate;

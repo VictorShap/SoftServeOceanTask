@@ -5,7 +5,7 @@ namespace FirstProject
 {
     internal class Ocean
     {
-        #region CONSTS
+        #region Consts
         private const int NumRowsDefault = 25;
         private const int NumColumnsDefault = 70;
         private const int NumPreyDefault = 150;
@@ -16,12 +16,12 @@ namespace FirstProject
         public const char DefaultCellImage = '-';
         #endregion
 
-        #region READONLY
+        #region Readonly
         private readonly Cell[,] _cells;
         private readonly IOceanViewer _supervisor;
         #endregion
 
-        #region PRIVATE FIELDS
+        #region Private fields
         private int _numRows;
         private int _numColumns;
         private int _numPrey;
@@ -31,7 +31,7 @@ namespace FirstProject
         private int _size;
         #endregion
 
-        #region PRIVATE PROPERTIES
+        #region Private properties
         private int NumIterations
         {
 
@@ -93,7 +93,7 @@ namespace FirstProject
         }
         #endregion
 
-        #region PUBLIC PROPERTIES
+        #region Public properties
         public int NumPrey
         {
             get
@@ -171,7 +171,7 @@ namespace FirstProject
         }
         #endregion
 
-        #region INDEXERS
+        #region Indexders
         public Cell this[Coordinate coordinate]
         {
             get
@@ -197,9 +197,9 @@ namespace FirstProject
         }
         #endregion
 
-        #region METHODS
+        #region Methods
 
-        #region METHODS FOR CREATING CELLS
+        #region Methods for creating cells
         private void InitializeCells()
         {
             CreateCells(typeof(Obstacle), NumObstacles);
@@ -236,15 +236,15 @@ namespace FirstProject
         }
         #endregion;
 
-        #region METHODS FOR GETTING NEIGHBORS
-        private Coordinate GetNeighborWithImage(CellTypes neighborType, Coordinate currentCoordinate)
+        #region Methods for getting neighbors
+        private Coordinate GetNeighborWithType(CellType neighborType, Coordinate currentCoordinate)
         {
             int count = 0;
             Coordinate[] neighbors = new Coordinate[NumDirections];
 
             switch (neighborType)
             {
-                case CellTypes.Prey:
+                case CellType.Prey:
 
                     foreach (Coordinate coordinate in GetNeighbors(currentCoordinate))
                     {
@@ -256,7 +256,7 @@ namespace FirstProject
 
                     break;
 
-                case CellTypes.Empty:
+                case CellType.Empty:
 
                     foreach (Coordinate coordinate in GetNeighbors(currentCoordinate))
                     {
@@ -318,15 +318,15 @@ namespace FirstProject
         }
         #endregion
 
-        #region PUBLIC METHODS
+        #region Public methods
         public Coordinate GetEmptyNeighborCoord(Coordinate currentCoordinate)
         {
-            return GetNeighborWithImage(CellTypes.Empty, currentCoordinate);
+            return GetNeighborWithType(CellType.Empty, currentCoordinate);
         }
 
         public Coordinate GetNeighborPreyCoord(Coordinate currentCoordinate)
         {
-            return GetNeighborWithImage(CellTypes.Prey, currentCoordinate);
+            return GetNeighborWithType(CellType.Prey, currentCoordinate);
         }
 
         public void MoveFrom(Coordinate from, Coordinate to)
@@ -355,7 +355,7 @@ namespace FirstProject
                 _supervisor.DisplayValidationMessage(true);
             }
 
-            _supervisor.DisplayGameState(GameStates.Start);
+            _supervisor.DisplayGameState(GameState.Start);
             InitializeCells();
 
             for (int iteration = 0; iteration < NumIterations; iteration++)
@@ -386,11 +386,11 @@ namespace FirstProject
                     _supervisor.DisplayCells(NumRows, NumColumns);
                     _supervisor.DisplayBorder();
 
-                    _supervisor.DisplayGameState(GameStates.Continue);
+                    _supervisor.DisplayGameState(GameState.Continue);
                 }
             }
 
-            _supervisor.DisplayGameState(GameStates.End);
+            _supervisor.DisplayGameState(GameState.End);
         }
         #endregion
 

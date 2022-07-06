@@ -4,7 +4,7 @@ namespace FirstProject
 {
     internal class Obstacle : Cell
     {
-        #region CONSTS
+        #region Consts
         private const char DefaultObstacleImage = '#';
         #endregion
 
@@ -15,7 +15,7 @@ namespace FirstProject
         }
         #endregion
 
-        #region METHODS
+        #region Methods
         public override void Process()
         {
 

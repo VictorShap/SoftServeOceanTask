@@ -74,24 +74,24 @@ namespace FirstProject
             }
         }
 
-        public void DisplayGameState(GameStates gameState)
+        public void DisplayGameState(GameState gameState)
         {
             switch (gameState)
             {
-                case GameStates.Start:
+                case GameState.Start:
 
                     Console.WriteLine("Starting...");
 
                     break;
 
-                case GameStates.Continue:
+                case GameState.Continue:
 
                     Console.Write("Press any key to continue");
                     Console.ReadKey();
 
                     break;
 
-                case GameStates.End:
+                case GameState.End:
 
                     Console.WriteLine("Simulation has been ended");
                     Console.ReadKey();
