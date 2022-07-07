@@ -17,15 +17,15 @@
   <Class Name="OceanSimulationInConsole.Ocean" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="6" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACQAAIAABsAAAAJGEAACBAKGABBgAACgIZABGIJAAY=</HashCode>
+      <HashCode>AACQAAIAABsAAAAJHEAACBACGABBgAACgIZABGIJAAY=</HashCode>
       <FileName>Ocean.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="OceanSimulationInConsole.OceanViewer" BaseTypeListCollapsed="true">
+  <Class Name="OceanSimulationInConsole.OceanViewer" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="7.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAQIAAAACAQCAAAAEAAIAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAABAAABAAQIAAAAAASGAACAEAAIAACAAAECAQABAAA=</HashCode>
       <FileName>OceanViewer.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -104,7 +104,7 @@
   <Interface Name="OceanSimulationInConsole.IOceanViewer" Collapsed="true">
     <Position X="10.25" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAQIAAAACAACAAAAEAAIAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAIAACAAAACAAAAAAA=</HashCode>
       <FileName>IOceanViewer.cs</FileName>
     </TypeIdentifier>
   </Interface>

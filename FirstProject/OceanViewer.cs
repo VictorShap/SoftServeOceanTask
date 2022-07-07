@@ -86,10 +86,10 @@ namespace OceanSimulationInConsole
 
                 }
 
-                Console.WriteLine(stringBuilder);
-
-                stringBuilder.Clear();
+                stringBuilder.Append("\n");
             }
+
+            Console.WriteLine(stringBuilder);
         }
 
         private void DisplayBorder()

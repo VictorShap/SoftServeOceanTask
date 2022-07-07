@@ -211,7 +211,7 @@ namespace OceanSimulationInConsole
                 {
                     for (int row = 0; row < NumRows; row++)
                     {
-                        if (CurrentIteration == 0)
+                        if (CurrentIteration == 1)
                         {
                             break;
                         }
