@@ -25,11 +25,6 @@ namespace OceanSimulationInConsole
         {
             Coordinate toCoordinate;
 
-            if (WasIterated)
-            {
-                return;
-            }
-
             if (--_timeToFeed <= 0)
             {
                 _owner.NumPredators = _owner.NumPredators - 1;
@@ -52,8 +47,6 @@ namespace OceanSimulationInConsole
                     base.Process();
                 }
             }
-
-            WasIterated = true;
         }
 
         protected override Cell Reproduce(Coordinate coordinate)

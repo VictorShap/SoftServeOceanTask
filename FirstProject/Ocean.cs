@@ -207,6 +207,8 @@ namespace OceanSimulationInConsole
 
             for (CurrentIteration = 1; CurrentIteration < NumIterations; CurrentIteration++)
             {
+                ICellVisitor cellVisitor = new CellVisitor();
+
                 if (NumPredators > 0 && NumPrey > 0)
                 {
                     for (int row = 0; row < NumRows; row++)
@@ -225,7 +227,7 @@ namespace OceanSimulationInConsole
                                 continue;
                             }
 
-                            _cells[row, column].Process();
+                            _cells[row, column].Accept(cellVisitor);
                         }
                     }
 

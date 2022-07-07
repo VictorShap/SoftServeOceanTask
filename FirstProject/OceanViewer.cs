@@ -80,7 +80,6 @@ namespace OceanSimulationInConsole
                     }
                     else
                     {
-                        _ocean[row, column].WasIterated = false;
                         stringBuilder.Append(_ocean[row, column].Image);
                     }
 

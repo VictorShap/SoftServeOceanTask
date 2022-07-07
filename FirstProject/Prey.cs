@@ -25,17 +25,9 @@ namespace OceanSimulationInConsole
         {
             Coordinate toCoord = _owner.GetEmptyNeighborCoord(Offset);
 
-            if (WasIterated)
-            {
-                return;
-            }
-
-            WasIterated = true;
-
             if (--_timeToReproduce <= 0)
             {
                 Cell redproducedCell = Reproduce(toCoord);
-                redproducedCell.WasIterated = true;
                 _timeToReproduce = TimeToReproduceDefault;
 
                 _owner[toCoord] = redproducedCell;

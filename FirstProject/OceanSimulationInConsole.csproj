@@ -44,9 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cell.cs" />
+    <Compile Include="CellVisitor.cs" />
     <Compile Include="Coordinate.cs" />
     <Compile Include="CellType.cs" />
     <Compile Include="GameState.cs" />
+    <Compile Include="ICellVisitor.cs" />
     <Compile Include="IOcean.cs" />
     <Compile Include="IOceanLength.cs" />
     <Compile Include="IOceanIndexer.cs" />

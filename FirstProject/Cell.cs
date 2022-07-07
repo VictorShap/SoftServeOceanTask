@@ -6,7 +6,6 @@ namespace OceanSimulationInConsole
         #region Fields
         protected readonly IOcean _owner;
         protected char _image;
-        protected bool _wasIterated = false;
         private Coordinate _offset;
         #endregion
 
@@ -26,7 +25,6 @@ namespace OceanSimulationInConsole
         {
             get => _image;
         }
-        public bool WasIterated { get => _wasIterated; set => _wasIterated = value; }
         #endregion
 
         #region Ctors
@@ -41,6 +39,11 @@ namespace OceanSimulationInConsole
         protected abstract Cell Reproduce(Coordinate coordinate);
 
         public abstract void Process();
+
+        public void Accept(ICellVisitor cellVisitor)
+        {
+            cellVisitor.Visit(this);
+        }
         #endregion
     }
 }
