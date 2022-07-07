@@ -13,7 +13,7 @@ namespace OceanSimulationInConsole
         public Random Random { get { return random; } }
         #endregion
 
-        #region CTORS
+        #region Ctors
         public RandomNumberGenerator(IOceanLength ocean)
         {
             random = new Random();

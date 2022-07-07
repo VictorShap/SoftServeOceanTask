@@ -29,7 +29,7 @@ namespace OceanSimulationInConsole
         public bool WasIterated { get => _wasIterated; set => _wasIterated = value; }
         #endregion
 
-        #region CTORS
+        #region Ctors
         protected Cell(Coordinate coordinate, IOcean ocean)
         {
             _owner = ocean;

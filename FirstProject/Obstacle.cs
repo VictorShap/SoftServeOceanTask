@@ -8,7 +8,7 @@ namespace OceanSimulationInConsole
         private const char DefaultObstacleImage = '#';
         #endregion
 
-        #region CTORS
+        #region Ctors
         public Obstacle(Coordinate coordinate, IOcean ocean) : base(coordinate, ocean)
         {
             _image = DefaultObstacleImage;

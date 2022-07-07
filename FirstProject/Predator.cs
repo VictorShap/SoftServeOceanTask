@@ -12,7 +12,7 @@ namespace OceanSimulationInConsole
         private int _timeToFeed;
         #endregion
 
-        #region CTORS
+        #region Ctors
         public Predator(Coordinate coordinate, IOcean ocean) : base(coordinate, ocean)
         {
             _image = DefaultPredatorImage;

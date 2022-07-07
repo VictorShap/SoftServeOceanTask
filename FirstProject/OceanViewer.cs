@@ -8,7 +8,7 @@ namespace OceanSimulationInConsole
         private readonly IOceanView _ocean;
         #endregion
 
-        #region CTORS
+        #region Ctors
         public OceanViewer(IOceanView ocean)
         {
             _ocean = ocean;

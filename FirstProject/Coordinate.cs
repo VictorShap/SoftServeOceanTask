@@ -8,7 +8,7 @@ namespace OceanSimulationInConsole
         public int Y { get; set; }
         #endregion
 
-        #region CTORS
+        #region Ctors
         public Coordinate(int x, int y)
         {
             X = x;

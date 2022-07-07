@@ -153,7 +153,7 @@ namespace OceanSimulationInConsole
         public int CurrentIteration { get; set; } = 1;
         #endregion
 
-        #region CTORS
+        #region Ctors
         public Ocean()
         {
             _numColumns = NumColumnsDefault;
