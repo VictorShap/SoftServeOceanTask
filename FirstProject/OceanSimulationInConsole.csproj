@@ -43,30 +43,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cell.cs" />
-    <Compile Include="CellVisitor.cs" />
-    <Compile Include="Coordinate.cs" />
-    <Compile Include="CellType.cs" />
-    <Compile Include="GameState.cs" />
-    <Compile Include="ICellVisitor.cs" />
-    <Compile Include="IOcean.cs" />
-    <Compile Include="IOceanLength.cs" />
-    <Compile Include="IOceanIndexer.cs" />
-    <Compile Include="IOceanNumberOfAllObjects.cs" />
-    <Compile Include="IOceanView.cs" />
-    <Compile Include="IOceanViewer.cs" />
-    <Compile Include="Obstacle.cs" />
-    <Compile Include="Ocean.cs" />
-    <Compile Include="OceanViewer.cs" />
-    <Compile Include="Predator.cs" />
-    <Compile Include="Prey.cs" />
+    <Compile Include="Ocean\CellTypes\Cell.cs" />
+    <Compile Include="Ocean\Visitor\CellVisitor.cs" />
+    <Compile Include="Ocean\CellTypes\Structs\Coordinate.cs" />
+    <Compile Include="Ocean\CellTypes\Enums\CellType.cs" />
+    <Compile Include="UI\Enums\GameState.cs" />
+    <Compile Include="Ocean\Visitor\ICellVisitor.cs" />
+    <Compile Include="Ocean\OceanInterfaces\IOcean.cs" />
+    <Compile Include="Ocean\OceanInterfaces\IOceanLength.cs" />
+    <Compile Include="Ocean\OceanInterfaces\IOceanIndexer.cs" />
+    <Compile Include="Ocean\OceanInterfaces\IOceanNumberOfAllObjects.cs" />
+    <Compile Include="Ocean\OceanInterfaces\IOceanView.cs" />
+    <Compile Include="UI\OceanViewerInterfaces\IOceanViewer.cs" />
+    <Compile Include="Ocean\CellTypes\Obstacle.cs" />
+    <Compile Include="Ocean\Ocean.cs" />
+    <Compile Include="UI\OceanViewer.cs" />
+    <Compile Include="Ocean\CellTypes\Predator.cs" />
+    <Compile Include="Ocean\CellTypes\Prey.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RandomNumberGenerator.cs" />
+    <Compile Include="Util\RandomNumberGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="ClassDiagram1.cd" />
+    <None Include="Diagrams\ClassDiagram1.cd" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
