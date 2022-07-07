@@ -6,9 +6,8 @@ namespace OceanSimulationInConsole
         #region Fields
         protected readonly IOcean _owner;
         protected char _image;
-        private Coordinate _offset;
-
         protected bool _wasIterated = false;
+        private Coordinate _offset;
         #endregion
 
         #region Properties
@@ -31,7 +30,7 @@ namespace OceanSimulationInConsole
         #endregion
 
         #region CTORS
-        public Cell(Coordinate coordinate, IOcean ocean)
+        protected Cell(Coordinate coordinate, IOcean ocean)
         {
             _owner = ocean;
             _offset = coordinate;

@@ -51,6 +51,7 @@
     <Compile Include="IOceanLength.cs" />
     <Compile Include="IOceanIndexer.cs" />
     <Compile Include="IOceanNumberOfAllObjects.cs" />
+    <Compile Include="IOceanView.cs" />
     <Compile Include="IOceanViewer.cs" />
     <Compile Include="Obstacle.cs" />
     <Compile Include="Ocean.cs" />
@@ -63,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

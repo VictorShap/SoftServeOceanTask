@@ -5,31 +5,22 @@ namespace OceanSimulationInConsole
     internal class OceanViewer : IOceanViewer
     {
         #region Consts
-        private readonly IOceanNumberOfAllObjects _ocean;
+        private readonly IOceanView _ocean;
         #endregion
 
         #region CTORS
-        public OceanViewer(IOceanNumberOfAllObjects ocean)
+        public OceanViewer(IOceanView ocean)
         {
             _ocean = ocean;
         }
         #endregion
 
         #region Methods
-        public int RequestValuesAndAssignThem(string s)
+
+        #region Private methods
+        private void DisplayStats()
         {
-            int number;
-
-            Console.WriteLine("Enter the number of {0}", s);
-            number = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("The number of {0} accepted " + number, s);
-
-            return number;
-        }
-
-        public void DisplayStats(int iteration)
-        {
-            Console.Write("Iteration number: " + ++iteration);
+            Console.Write("Iteration number: " + _ocean.CurrentIteration);
             Console.Write(" Obstacles:" + _ocean.NumObstacles);
             Console.Write(" Predators:" + _ocean.NumPredators);
             Console.Write(" Prey:" + _ocean.NumPrey);
@@ -37,11 +28,11 @@ namespace OceanSimulationInConsole
             DisplayBorder();
         }
 
-        public void DisplayCells(int numRows, int numColumns)
+        private void DisplayCells()
         {
-            for (int row = 0; row < numRows; row++)
+            for (int row = 0; row < _ocean.NumRows; row++)
             {
-                for (int column = 0; column < numColumns; column++)
+                for (int column = 0; column < _ocean.NumColumns; column++)
                 {
                     if (_ocean[row, column] == null)
                     {
@@ -59,7 +50,7 @@ namespace OceanSimulationInConsole
             }
         }
 
-        public void DisplayBorder()
+        private void DisplayBorder()
         {
             for (int column = 0; column < Console.WindowWidth; column++)
             {
@@ -72,6 +63,19 @@ namespace OceanSimulationInConsole
                     Console.Write("*");
                 }
             }
+        }
+        #endregion
+
+        #region Public Methods
+        public int RequestValuesAndAssignThem(string s)
+        {
+            int number;
+
+            Console.WriteLine("Enter the number of {0}", s);
+            number = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("The number of {0} accepted " + number, s);
+
+            return number;
         }
 
         public void DisplayGameState(GameState gameState)
@@ -111,6 +115,17 @@ namespace OceanSimulationInConsole
                 Console.WriteLine("Invalid value, so it will be set to maximum possible value");
             }
         }
+
+        public void DisplayIteration()
+        {
+            DisplayStats();
+            DisplayCells();
+            DisplayBorder();
+
+            DisplayGameState(GameState.Continue);
+        }
+        #endregion
+
         #endregion
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OceanSimulationInConsole
 {
-    internal class Ocean : IOceanLength, IOcean
+    internal class Ocean : IOceanView, IOcean
     {
         #region Consts
         private const int NumRowsDefault = 25;
@@ -35,7 +35,6 @@ namespace OceanSimulationInConsole
         #region Private properties
         private int NumIterations
         {
-
             get
             {
                 return _numIterations;
@@ -52,7 +51,6 @@ namespace OceanSimulationInConsole
                     _numIterations = value;
                 }
             }
-
         }
         #endregion
 
@@ -152,6 +150,7 @@ namespace OceanSimulationInConsole
                 }
             }
         }
+        public int CurrentIteration { get; set; } = 1;
         #endregion
 
         #region CTORS
@@ -204,16 +203,15 @@ namespace OceanSimulationInConsole
         #region Methods for launching
         private void Run()
         {
-
             InitializeCells();
 
-            for (int iteration = 0; iteration < NumIterations; iteration++)
+            for (CurrentIteration = 0; CurrentIteration < NumIterations; CurrentIteration++)
             {
                 if (NumPredators > 0 && NumPrey > 0)
                 {
                     for (int row = 0; row < NumRows; row++)
                     {
-                        if (iteration == 0)
+                        if (CurrentIteration == 0)
                         {
                             break;
                         }
@@ -230,21 +228,12 @@ namespace OceanSimulationInConsole
                             _cells[row, column].Process();
                         }
                     }
-                }
 
-                Iterate(iteration);
+                    _supervisor.DisplayIteration();
+                }
             }
 
             _supervisor.DisplayGameState(GameState.End);
-        }
-
-        private void Iterate(int iteration)
-        {
-            _supervisor.DisplayStats(iteration);
-            _supervisor.DisplayCells(NumRows, NumColumns);
-            _supervisor.DisplayBorder();
-
-            _supervisor.DisplayGameState(GameState.Continue);
         }
         #endregion
 
