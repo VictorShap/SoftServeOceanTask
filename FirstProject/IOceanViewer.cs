@@ -3,7 +3,7 @@ namespace OceanSimulationInConsole
 {
     internal interface IOceanViewer
     {
-        int RequestValuesAndAssignThem(string valueName);
+        int RequestValueAndAssign(string valueName);
 
         void DisplayGameState(GameState gameState);
 

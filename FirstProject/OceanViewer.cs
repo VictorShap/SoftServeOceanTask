@@ -1,10 +1,25 @@
 ﻿using System;
+using System.Threading;
+using System.Text;
 
 namespace OceanSimulationInConsole
 {
     internal class OceanViewer : IOceanViewer
     {
         #region Consts
+        private const int IterationCursorDefaultLeftPosition = 18;
+        private const int ObstaclesCursorDefaultLeftPosition = 11;
+        private const int PredatorsCursorDefaultLeftPosition = 11;
+        private const int PreyCursorDefaultLeftPosition = 6;
+        private const int IterationCursorDefaultTopPosition = 0;
+        private const int ObstaclesCursorDefaultTopPosition = 1;
+        private const int PredatorsCursorDefaultTopPosition = 2;
+        private const int PreyCursorDefaultTopPosition = 3;
+        private const int CursorDefaultLeftPosition = 0;
+        private const int CursorDefaultTopPosition = 6;
+        #endregion
+
+        #region Readonly
         private readonly IOceanView _ocean;
         #endregion
 
@@ -20,33 +35,60 @@ namespace OceanSimulationInConsole
         #region Private methods
         private void DisplayStats()
         {
-            Console.Write("Iteration number: " + _ocean.CurrentIteration);
-            Console.Write(" Obstacles:" + _ocean.NumObstacles);
-            Console.Write(" Predators:" + _ocean.NumPredators);
-            Console.Write(" Prey:" + _ocean.NumPrey);
+            if (_ocean.CurrentIteration == 1)
+            {
+                Console.WriteLine("Iteration number: " + _ocean.CurrentIteration);
+                Console.WriteLine("Obstacles: " + _ocean.NumObstacles);
+                Console.WriteLine("Predators: " + _ocean.NumPredators);
+                Console.WriteLine("Prey: " + _ocean.NumPrey);
+                DisplayBorder();
+            }
+            else
+            {
+                ReplaceOldValues(IterationCursorDefaultLeftPosition, _ocean.CurrentIteration, IterationCursorDefaultTopPosition);
+                ReplaceOldValues(ObstaclesCursorDefaultLeftPosition, _ocean.NumObstacles, ObstaclesCursorDefaultTopPosition);
+                ReplaceOldValues(PredatorsCursorDefaultLeftPosition, _ocean.NumPredators, PredatorsCursorDefaultTopPosition);
+                ReplaceOldValues(PreyCursorDefaultLeftPosition, _ocean.NumPrey, PreyCursorDefaultTopPosition);
 
-            DisplayBorder();
+                Console.SetCursorPosition(CursorDefaultLeftPosition, CursorDefaultTopPosition);
+            }
+        }
+
+        private void ReplaceOldValues(int start, int lenght, int line)
+        {
+            Console.SetCursorPosition(start + lenght.ToString().Length, line);
+
+            for (int i = 0; i < lenght.ToString().Length; i++)
+            {
+                Console.Write("\b");
+            }
+
+            Console.Write(lenght);
         }
 
         private void DisplayCells()
         {
+            StringBuilder stringBuilder = new StringBuilder();
+
             for (int row = 0; row < _ocean.NumRows; row++)
             {
                 for (int column = 0; column < _ocean.NumColumns; column++)
                 {
                     if (_ocean[row, column] == null)
                     {
-                        Console.Write(Ocean.DefaultCellImage);
+                        stringBuilder.Append(Ocean.DefaultCellImage);
                     }
                     else
                     {
                         _ocean[row, column].WasIterated = false;
-                        Console.Write(_ocean[row, column].Image);
+                        stringBuilder.Append(_ocean[row, column].Image);
                     }
 
                 }
 
-                Console.Write("\n");
+                Console.WriteLine(stringBuilder);
+
+                stringBuilder.Clear();
             }
         }
 
@@ -67,7 +109,7 @@ namespace OceanSimulationInConsole
         #endregion
 
         #region Public Methods
-        public int RequestValuesAndAssignThem(string s)
+        public int RequestValueAndAssign(string s)
         {
             int number;
 
@@ -85,13 +127,7 @@ namespace OceanSimulationInConsole
                 case GameState.Start:
 
                     Console.WriteLine("Starting...");
-
-                    break;
-
-                case GameState.Continue:
-
-                    Console.Write("Press any key to continue");
-                    Console.ReadKey();
+                    Console.Clear();
 
                     break;
 
@@ -120,9 +156,8 @@ namespace OceanSimulationInConsole
         {
             DisplayStats();
             DisplayCells();
-            DisplayBorder();
 
-            DisplayGameState(GameState.Continue);
+            Thread.Sleep(2000);
         }
         #endregion
 

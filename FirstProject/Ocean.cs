@@ -150,7 +150,7 @@ namespace OceanSimulationInConsole
                 }
             }
         }
-        public int CurrentIteration { get; set; } = 1;
+        public int CurrentIteration { get; set; }
         #endregion
 
         #region Ctors
@@ -205,7 +205,7 @@ namespace OceanSimulationInConsole
         {
             InitializeCells();
 
-            for (CurrentIteration = 0; CurrentIteration < NumIterations; CurrentIteration++)
+            for (CurrentIteration = 1; CurrentIteration < NumIterations; CurrentIteration++)
             {
                 if (NumPredators > 0 && NumPrey > 0)
                 {
@@ -242,10 +242,10 @@ namespace OceanSimulationInConsole
         {
             try
             {
-                NumIterations = _supervisor.RequestValuesAndAssignThem("iterations");
-                NumObstacles = _supervisor.RequestValuesAndAssignThem("obstacles");
-                NumPredators = _supervisor.RequestValuesAndAssignThem("predators");
-                NumPrey = _supervisor.RequestValuesAndAssignThem("prey");
+                NumIterations = _supervisor.RequestValueAndAssign("iterations");
+                NumObstacles = _supervisor.RequestValueAndAssign("obstacles");
+                NumPredators = _supervisor.RequestValueAndAssign("predators");
+                NumPrey = _supervisor.RequestValueAndAssign("prey");
             }
             catch (FormatException)
             {
