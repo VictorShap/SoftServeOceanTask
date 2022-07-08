@@ -9,7 +9,7 @@ namespace OceanSimulationInConsole
         #endregion
 
         #region Fields
-        private int _timeToFeed;
+        private int _timeToFeed; // the number of iterations after which the predator dies
         #endregion
 
         #region Ctors

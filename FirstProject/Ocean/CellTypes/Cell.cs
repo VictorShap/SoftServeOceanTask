@@ -4,9 +4,9 @@ namespace OceanSimulationInConsole
     internal abstract class Cell
     {
         #region Fields
-        protected readonly IOcean _owner;
-        protected char _image;
-        private Coordinate _offset;
+        protected readonly IOcean _owner; // the ocean to which the cell belongs
+        protected char _image; // the image of the cell that is displayed in the console
+        private Coordinate _offset; // the position of the cell in the ocean 
         #endregion
 
         #region Properties

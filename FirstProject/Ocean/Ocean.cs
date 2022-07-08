@@ -17,19 +17,19 @@ namespace OceanSimulationInConsole
         #endregion
 
         #region Readonly
-        private readonly Cell[,] _cells;
-        private readonly IOceanViewer _supervisor;
-        private readonly RandomNumberGenerator _randomNumberGenerator;
+        private readonly Cell[,] _cells; // array of the cells in the ocean
+        private readonly IOceanViewer _supervisor; // field for interacting with UI
+        private readonly RandomNumberGenerator _randomNumberGenerator; // field for interacting with random number generator
         #endregion
 
         #region Private fields
-        private int _numRows;
-        private int _numColumns;
-        private int _numPrey;
-        private int _numPredators;
-        private int _numObstacles;
-        private int _numIterations;
-        private int _size;
+        private int _numRows; // the number of rows in the ocean
+        private int _numColumns; // the number of columnss in the ocean
+        private int _numPrey; // the number of prey in the ocean
+        private int _numPredators; // the number of predators in the ocean
+        private int _numObstacles; // the number of obstacles in the ocean
+        private int _numIterations; // the number of iterations in the simulation
+        private int _size; // the size of the array _cells
         #endregion
 
         #region Private properties

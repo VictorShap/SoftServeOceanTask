@@ -5,11 +5,11 @@ namespace OceanSimulationInConsole
     internal class RandomNumberGenerator
     {
         #region Readonly
-        private readonly Random random;
-        private readonly IOceanLength ocean;
+        private readonly Random random; // field for generating random numbers
+        private readonly IOceanLength ocean; // field for interacting with the ocean
         #endregion
 
-        #region Fields
+        #region Properties
         public Random Random { get { return random; } }
         #endregion
 

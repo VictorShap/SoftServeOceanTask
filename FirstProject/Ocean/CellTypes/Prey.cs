@@ -9,7 +9,7 @@ namespace OceanSimulationInConsole
         #endregion
 
         #region Fields
-        protected int _timeToReproduce;
+        protected int _timeToReproduce; // the number of iterations after which the prey reproduces
         #endregion
 
         #region Ctors

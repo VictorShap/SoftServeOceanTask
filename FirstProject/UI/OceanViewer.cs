@@ -20,7 +20,7 @@ namespace OceanSimulationInConsole
         #endregion
 
         #region Readonly
-        private readonly IOceanView _ocean;
+        private readonly IOceanView _ocean; // field for interacting with the ocean
         #endregion
 
         #region Ctors

@@ -3,7 +3,7 @@ namespace OceanSimulationInConsole
 {
     internal struct Coordinate
     {
-        #region Fields
+        #region Properties
         public int X { get; set; }
         public int Y { get; set; }
         #endregion
