@@ -16,7 +16,7 @@ namespace OceanSimulationInConsole
         public Predator(Coordinate coordinate, IOcean ocean) : base(coordinate, ocean)
         {
             _image = DefaultPredatorImage;
-            this._timeToFeed = TimeToReproduceDefault;
+            this._timeToFeed = TimeToFeedDefault;
         }
         #endregion
 

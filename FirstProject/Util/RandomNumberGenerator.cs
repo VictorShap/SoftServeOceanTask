@@ -5,19 +5,19 @@ namespace OceanSimulationInConsole
     internal class RandomNumberGenerator
     {
         #region Readonly
-        private readonly Random random; // field for generating random numbers
-        private readonly IOceanLength ocean; // field for interacting with the ocean
+        private readonly Random _random; // field for generating random numbers
+        private readonly IOceanLength _ocean; // field for interacting with the ocean
         #endregion
 
         #region Properties
-        public Random Random { get { return random; } }
+        public Random Random { get { return _random; } }
         #endregion
 
         #region Ctors
         public RandomNumberGenerator(IOceanLength ocean)
         {
-            random = new Random();
-            this.ocean = ocean;
+            _random = new Random();
+            this._ocean = ocean;
         }
         #endregion
 
@@ -28,10 +28,10 @@ namespace OceanSimulationInConsole
 
             do
             {
-                x = random.Next(0, ocean.NumRows);
-                y = random.Next(0, ocean.NumColumns);
+                x = _random.Next(0, _ocean.NumRows);
+                y = _random.Next(0, _ocean.NumColumns);
             }
-            while (ocean[x, y] != null);
+            while (_ocean[x, y] != null);
 
             return new Coordinate(x, y);
         }

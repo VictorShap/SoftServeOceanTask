@@ -4,8 +4,9 @@ namespace OceanSimulationInConsole
     internal class Prey : Cell
     {
         #region Consts
+        private const int TimeToReproduceDefault = 6;
+
         public const char DefaultPreyImage = 'f';
-        protected const int TimeToReproduceDefault = 6;
         #endregion
 
         #region Fields
@@ -36,7 +37,6 @@ namespace OceanSimulationInConsole
             {
                 _owner.MoveFrom(Offset, toCoord);
             }
-
         }
 
         protected override Cell Reproduce(Coordinate coordinate)

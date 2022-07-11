@@ -1,35 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="OceanSimulationInConsole.InvalidCoordinateException" Collapsed="true">
+    <Position X="11.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Exceptions\InvalidCoordinateException .cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Class Name="OceanSimulationInConsole.Cell" Collapsed="true">
-    <Position X="12.75" Y="0.75" Width="1.5" />
+    <Position X="6.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAgAAAAAAAEAAAIgAAAAAAAAAAQBAAAAAAAAAAgAA=</HashCode>
       <FileName>Ocean\CellTypes\Cell.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OceanSimulationInConsole.Obstacle" Collapsed="true">
-    <Position X="11.5" Y="2" Width="1.5" />
+    <Position X="8" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAEAAAAgAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
       <FileName>Ocean\CellTypes\Obstacle.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OceanSimulationInConsole.Predator" Collapsed="true">
-    <Position X="13.75" Y="3.5" Width="1.5" />
+    <Position X="5.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAGAAAAgAAAAAAgAAAAAAAAAAAAAAAAAE=</HashCode>
       <FileName>Ocean\CellTypes\Predator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OceanSimulationInConsole.Prey" Collapsed="true">
-    <Position X="13.75" Y="2" Width="1.5" />
+    <Position X="5.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAEEAAAgAAAABAAAAAACAAAAAAAAAAAAA=</HashCode>
       <FileName>Ocean\CellTypes\Prey.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OceanSimulationInConsole.Ocean" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="8" Y="0.5" Width="1.5" />
+    <Position X="10" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACQAAIAABsAAAAJHEAACBACGABBgAACgIZABGIJAAY=</HashCode>
       <FileName>Ocean\Ocean.cs</FileName>
@@ -37,7 +44,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="OceanSimulationInConsole.CellVisitor" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="6.25" Y="0.5" Width="1.5" />
+    <Position X="12" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Ocean\Visitor\CellVisitor.cs</FileName>
@@ -45,14 +52,14 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="OceanSimulationInConsole.Program" Collapsed="true">
-    <Position X="6.25" Y="1.5" Width="1.5" />
+    <Position X="6.75" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OceanSimulationInConsole.OceanViewer" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="9.75" Y="0.5" Width="1.5" />
+    <Position X="10.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAABAAQIAAAAAASGAACAEAAIAACAAAECAQABAAA=</HashCode>
       <FileName>UI\OceanViewer.cs</FileName>
@@ -60,77 +67,85 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="OceanSimulationInConsole.RandomNumberGenerator" Collapsed="true">
-    <Position X="8" Y="1.5" Width="1.5" />
+    <Position X="7" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAABAAAAAQAAAAACAA=</HashCode>
+      <HashCode>AAAAAAAAAAQAAAAAAAQAAAAAAAAABAAAAAAAAAAAAAE=</HashCode>
       <FileName>Util\RandomNumberGenerator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="OceanSimulationInConsole.Coordinate" Collapsed="true">
-    <Position X="6.25" Y="2.75" Width="1.5" />
+    <Position X="9.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYiA=</HashCode>
       <FileName>Ocean\CellTypes\Structs\Coordinate.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Interface Name="OceanSimulationInConsole.IOcean" Collapsed="true">
-    <Position X="0.5" Y="3.75" Width="1.5" />
+    <Position X="3.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAgAIAAAAAAAA=</HashCode>
       <FileName>Ocean\OceanInterfaces\IOcean.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="OceanSimulationInConsole.IOceanIndexer" Collapsed="true">
-    <Position X="1.75" Y="0.5" Width="1.5" />
+    <Position X="2.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Ocean\OceanInterfaces\IOceanIndexer.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="OceanSimulationInConsole.IOceanLength" Collapsed="true">
-    <Position X="2.75" Y="1.75" Width="1.5" />
+    <Position X="1.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
       <FileName>Ocean\OceanInterfaces\IOceanLength.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="OceanSimulationInConsole.IOceanNumberOfAllObjects" Collapsed="true">
-    <Position X="0.5" Y="1.75" Width="1.5" />
+    <Position X="3.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAQAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
       <FileName>Ocean\OceanInterfaces\IOceanNumberOfAllObjects.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="OceanSimulationInConsole.IOceanView" Collapsed="true">
-    <Position X="2.75" Y="3.75" Width="1.5" />
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <InheritanceLine Type="OceanSimulationInConsole.IOceanNumberOfAllObjects" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="3.75" Y="2.188" />
+        <Point X="3.256" Y="2.188" />
+        <Point X="3.256" Y="3.66" />
+        <Point X="2" Y="3.66" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Ocean\OceanInterfaces\IOceanView.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="OceanSimulationInConsole.ICellVisitor" Collapsed="true">
-    <Position X="6.25" Y="4" Width="1.5" />
+    <Position X="12" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Ocean\Visitor\ICellVisitor.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="OceanSimulationInConsole.IOceanViewer" Collapsed="true">
-    <Position X="8" Y="4" Width="1.5" />
+    <Position X="10.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAIAACAAAACAAAAAAA=</HashCode>
       <FileName>UI\OceanViewerInterfaces\IOceanViewer.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Enum Name="OceanSimulationInConsole.CellType" Collapsed="true">
-    <Position X="6.25" Y="5" Width="1.5" />
+    <Position X="0.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAAAAAAAAAAAAAAAAIEAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
       <FileName>Ocean\CellTypes\Enums\CellType.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="OceanSimulationInConsole.GameState" Collapsed="true">
-    <Position X="8" Y="5" Width="1.5" />
+    <Position X="0.75" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIACAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>UI\Enums\GameState.cs</FileName>

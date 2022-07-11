@@ -41,6 +41,7 @@ namespace OceanSimulationInConsole
                 Console.WriteLine("Obstacles: " + _ocean.NumObstacles);
                 Console.WriteLine("Predators: " + _ocean.NumPredators);
                 Console.WriteLine("Prey: " + _ocean.NumPrey);
+
                 DisplayBorder();
             }
             else
@@ -151,7 +152,7 @@ namespace OceanSimulationInConsole
         {
             if (wasFormatException)
             {
-                Console.WriteLine("Invalid input, so the value will be set its default");
+                Console.WriteLine("Invalid input, so the it will be set its default value");
             }
             else
             {

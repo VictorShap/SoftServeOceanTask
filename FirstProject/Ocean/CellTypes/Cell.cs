@@ -12,7 +12,7 @@ namespace OceanSimulationInConsole
         #region Properties
         public Coordinate Offset
         {
-            get
+            protected get
             {
                 return _offset;
             }

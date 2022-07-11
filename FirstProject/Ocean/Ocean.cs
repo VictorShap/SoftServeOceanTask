@@ -13,6 +13,7 @@ namespace OceanSimulationInConsole
         private const int NumObstaclesDefault = 75;
         private const int NumIterationsDefault = 1000;
         private const int NumDirections = 4;
+
         public const char DefaultCellImage = '-';
         #endregion
 
