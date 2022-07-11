@@ -177,11 +177,11 @@ namespace OceanSimulationInConsole
         {
             get
             {
-                return _cells[coordinate.X, coordinate.Y];
+                return this[coordinate.X, coordinate.Y];
             }
             set
             {
-                _cells[coordinate.X, coordinate.Y] = value;
+                this[coordinate.X, coordinate.Y] = value;
             }
         }
 
@@ -189,11 +189,11 @@ namespace OceanSimulationInConsole
         {
             get
             {
-                return this[new Coordinate(x, y)];
+                return _cells[x, y];
             }
             set
             {
-                this[new Coordinate(x, y)] = value;
+                _cells[x, y] = value;
             }
         }
         #endregion
@@ -242,17 +242,10 @@ namespace OceanSimulationInConsole
         #region Methods for creating cells
         private void InitializeCells()
         {
-            try
-            {
-                NumIterations = _supervisor.RequestValueAndAssign("iterations");
-                NumObstacles = _supervisor.RequestValueAndAssign("obstacles");
-                NumPredators = _supervisor.RequestValueAndAssign("predators");
-                NumPrey = _supervisor.RequestValueAndAssign("prey");
-            }
-            catch (FormatException)
-            {
-                _supervisor.DisplayValidationMessage(true);
-            }
+            NumIterations = _supervisor.RequestValueAndAssign("iterations");
+            NumObstacles = _supervisor.RequestValueAndAssign("obstacles");
+            NumPredators = _supervisor.RequestValueAndAssign("predators");
+            NumPrey = _supervisor.RequestValueAndAssign("prey");
 
             _supervisor.DisplayGameState(GameState.Start);
 

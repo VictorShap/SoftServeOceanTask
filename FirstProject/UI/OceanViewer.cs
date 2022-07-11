@@ -113,8 +113,15 @@ namespace OceanSimulationInConsole
             int number;
 
             Console.WriteLine("Enter the number of {0}", s);
-            number = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("The number of {0} accepted " + number, s);
+
+            if (Int32.TryParse(Console.ReadLine(), out number))
+            {
+                Console.WriteLine("The number of {0} accepted " + number, s);
+            }
+            else
+            {
+                DisplayValidationMessage(true);
+            }
 
             return number;
         }
@@ -143,7 +150,7 @@ namespace OceanSimulationInConsole
         {
             if (wasFormatException)
             {
-                Console.WriteLine("Invalid input, so everything will be set to its default value");
+                Console.WriteLine("Invalid input, so its value will be set to 0");
             }
             else
             {
