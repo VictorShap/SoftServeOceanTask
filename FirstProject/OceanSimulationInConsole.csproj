@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\InvalidCoordinateException .cs" />
     <Compile Include="Ocean\CellTypes\Cell.cs" />
     <Compile Include="Ocean\Visitor\CellVisitor.cs" />
     <Compile Include="Ocean\CellTypes\Structs\Coordinate.cs" />

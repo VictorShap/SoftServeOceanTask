@@ -108,22 +108,22 @@ namespace OceanSimulationInConsole
         #endregion
 
         #region Public Methods
-        public int RequestValueAndAssign(string s)
+        public int RequestValueAndAssign(string whatToAssign)
         {
-            int number;
+            int numberFromUser;
 
-            Console.WriteLine("Enter the number of {0}", s);
+            Console.WriteLine("Enter the number of {0}", whatToAssign);
 
-            if (Int32.TryParse(Console.ReadLine(), out number))
+            if (Int32.TryParse(Console.ReadLine(), out numberFromUser))
             {
-                Console.WriteLine("The number of {0} accepted " + number, s);
+                Console.WriteLine("The number of {0} accepted " + numberFromUser, whatToAssign);
             }
             else
             {
                 DisplayValidationMessage(true);
             }
 
-            return number;
+            return numberFromUser;
         }
 
         public void DisplayGameState(GameState gameState)
