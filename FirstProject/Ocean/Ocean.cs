@@ -191,7 +191,7 @@ namespace OceanSimulationInConsole
             {
                 if (x > NumRows || y > NumColumns || x < 0 || y < 0)
                 {
-                    throw new InvalidCoordinateException("You tried to access array elements by non-existent coordinates");
+                    throw new InvalidCoordinateException("You tried to access array elements by non-existent coordinates", x, y);
                 }
 
                 return _cells[x, y];
@@ -200,7 +200,7 @@ namespace OceanSimulationInConsole
             {
                 if (x > NumRows || y > NumColumns || x < 0 || y < 0)
                 {
-                    throw new InvalidCoordinateException("You tried to access array elements by non-existent coordinates");
+                    throw new InvalidCoordinateException("You tried to access array elements by non-existent coordinates", x, y);
                 }
 
                 _cells[x, y] = value;
