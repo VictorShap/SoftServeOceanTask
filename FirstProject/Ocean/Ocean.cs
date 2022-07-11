@@ -158,10 +158,6 @@ namespace OceanSimulationInConsole
         {
             _numColumns = NumColumnsDefault;
             _numRows = NumRowsDefault;
-            _numObstacles = NumObstaclesDefault;
-            _numPredators = NumPredatorsDefault;
-            _numPrey = NumPreyDefault;
-            _numIterations = NumIterationsDefault;
 
             _size = NumRows * NumColumns;
             _cells = new Cell[NumRows, NumColumns];
@@ -252,10 +248,10 @@ namespace OceanSimulationInConsole
         #region Methods for creating cells
         private void InitializeCells()
         {
-            NumIterations = _supervisor.RequestValueAndAssign("iterations");
-            NumObstacles = _supervisor.RequestValueAndAssign("obstacles");
-            NumPredators = _supervisor.RequestValueAndAssign("predators");
-            NumPrey = _supervisor.RequestValueAndAssign("prey");
+            NumIterations = _supervisor.RequestValueAndAssign("iterations", NumIterationsDefault);
+            NumObstacles = _supervisor.RequestValueAndAssign("obstacles", NumObstaclesDefault);
+            NumPredators = _supervisor.RequestValueAndAssign("predators", NumPredatorsDefault);
+            NumPrey = _supervisor.RequestValueAndAssign("prey", NumPreyDefault);
 
             _supervisor.DisplayGameState(GameState.Start);
 

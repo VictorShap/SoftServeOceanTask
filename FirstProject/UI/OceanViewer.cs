@@ -108,11 +108,11 @@ namespace OceanSimulationInConsole
         #endregion
 
         #region Public Methods
-        public int RequestValueAndAssign(string whatToAssign)
+        public int RequestValueAndAssign(string whatToAssign, int defaultValue)
         {
             int numberFromUser;
 
-            Console.WriteLine("Enter the number of {0}", whatToAssign);
+            Console.WriteLine("Enter the number of {0} (default: {1}) ", whatToAssign, defaultValue);
 
             if (Int32.TryParse(Console.ReadLine(), out numberFromUser))
             {
@@ -120,6 +120,7 @@ namespace OceanSimulationInConsole
             }
             else
             {
+                numberFromUser = defaultValue;
                 DisplayValidationMessage(true);
             }
 
@@ -150,7 +151,7 @@ namespace OceanSimulationInConsole
         {
             if (wasFormatException)
             {
-                Console.WriteLine("Invalid input, so its value will be set to 0");
+                Console.WriteLine("Invalid input, so the value will be set its default");
             }
             else
             {
