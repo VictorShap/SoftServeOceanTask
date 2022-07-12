@@ -1,14 +1,24 @@
 ﻿
 namespace OceanSimulationInConsole
 {
-    internal class InvalidCoordinateException : System.ApplicationException
+    internal class InvalidCoordinateException : System.Exception
     {
-        public readonly (int, int) Values;
+        #region Readonly
+        private readonly int _x;
+        private readonly int _y;
+        #endregion
 
+        #region Properties
+        public int X { get => _x; }
+        public int Y { get => _y; }
+        #endregion
+
+        #region Ctors
         public InvalidCoordinateException(string message, int x, int y) : base(message)
         {
-            Values.Item1 = x;
-            Values.Item2 = y;
+            _x = x;
+            _y = y;
         }
+        #endregion
     }
 }
