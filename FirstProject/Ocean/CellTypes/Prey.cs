@@ -22,6 +22,16 @@ namespace OceanSimulationInConsole
         #endregion
 
         #region Methods
+        protected override Cell Reproduce(Coordinate coordinate)
+        {
+            if (coordinate != Offset)
+            {
+                _owner.NumPrey = _owner.NumPrey + 1;
+            }
+
+            return new Prey(coordinate, _owner);
+        }
+
         public override void Process()
         {
             Coordinate toCoord = _owner.GetEmptyNeighborCoord(Offset);
@@ -37,16 +47,6 @@ namespace OceanSimulationInConsole
             {
                 _owner.MoveFrom(Offset, toCoord);
             }
-        }
-
-        protected override Cell Reproduce(Coordinate coordinate)
-        {
-            if (coordinate != Offset)
-            {
-                _owner.NumPrey = _owner.NumPrey + 1;
-            }
-
-            return new Prey(coordinate, _owner);
         }
         #endregion
     }
