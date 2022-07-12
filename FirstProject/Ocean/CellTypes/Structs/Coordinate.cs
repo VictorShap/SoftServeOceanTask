@@ -3,16 +3,21 @@ namespace OceanSimulationInConsole
 {
     internal struct Coordinate
     {
+        #region Readonly
+        private readonly int _x;
+        private readonly int _y;
+        #endregion
+
         #region Properties
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int X { get => _x; }
+        public int Y { get => _y; }
         #endregion
 
         #region Ctors
         public Coordinate(int x, int y)
         {
-            X = x;
-            Y = y;
+            _x = x;
+            _y = y;
         }
         #endregion
 
