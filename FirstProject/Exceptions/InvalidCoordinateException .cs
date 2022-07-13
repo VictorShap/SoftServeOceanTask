@@ -14,6 +14,22 @@ namespace OceanSimulationInConsole
         #endregion
 
         #region Ctors
+
+        public InvalidCoordinateException()
+        {
+
+        }
+
+        public InvalidCoordinateException(string message) : base(message)
+        {
+
+        }
+
+        public InvalidCoordinateException(string message, System.Exception innerException) : base(message, innerException)
+        {
+
+        }
+
         public InvalidCoordinateException(string message, int x, int y) : base(message)
         {
             _x = x;

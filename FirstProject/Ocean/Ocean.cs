@@ -186,19 +186,13 @@ namespace OceanSimulationInConsole
         {
             get
             {
-                if (x > NumRows || y > NumColumns || x < 0 || y < 0)
-                {
-                    throw new InvalidCoordinateException("You tried to access array elements by non-existent coordinates", x, y);
-                }
+                CheckCoordinate(x, y);
 
                 return _cells[x, y];
             }
             set
             {
-                if (x > NumRows || y > NumColumns || x < 0 || y < 0)
-                {
-                    throw new InvalidCoordinateException("You tried to access array elements by non-existent coordinates", x, y);
-                }
+                CheckCoordinate(x, y);
 
                 _cells[x, y] = value;
             }
@@ -355,6 +349,16 @@ namespace OceanSimulationInConsole
             x = currentCoordinate.X == NumRows - 1 ? currentCoordinate.X : (currentCoordinate.X + 1);
 
             return new Coordinate(x, currentCoordinate.Y);
+        }
+        #endregion
+
+        #region Utility methods
+        private void CheckCoordinate(int x, int y)
+        {
+            if (x > NumRows || y > NumColumns || x < 0 || y < 0)
+            {
+                throw new InvalidCoordinateException("You tried to access an array by non-existent coordinates");
+            }
         }
         #endregion
 
