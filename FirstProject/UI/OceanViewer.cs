@@ -57,13 +57,14 @@ namespace OceanSimulationInConsole
 
         private void ReplaceOldValues(int start, int lenght, int line)
         {
-            Console.SetCursorPosition(start + lenght.ToString().Length, line);
+            Console.SetCursorPosition(start, line);
 
-            for (int i = 0; i < lenght.ToString().Length; i++)
+            for (int i = 0; i < lenght.ToString().Length + 1; i++)
             {
-                Console.Write("\b");
+                Console.Write(" ");
             }
 
+            Console.SetCursorPosition(start, line);
             Console.Write(lenght);
         }
 
