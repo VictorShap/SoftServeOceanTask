@@ -33,6 +33,21 @@ namespace OceanSimulationInConsole
         private int _size; // the size of the array _cells
         #endregion
 
+        #region Ctors
+        public Ocean()
+        {
+            _numColumns = NumColumnsDefault;
+            _numRows = NumRowsDefault;
+
+            _size = NumRows * NumColumns;
+            _cells = new Cell[NumRows, NumColumns];
+            _supervisor = new OceanViewer(this);
+            _randomNumberGenerator = new RandomNumberGenerator(this);
+
+            Run();
+        }
+        #endregion
+
         #region Private properties
         private int NumIterations
         {
@@ -152,21 +167,6 @@ namespace OceanSimulationInConsole
             }
         }
         public int CurrentIteration { get; set; }
-        #endregion
-
-        #region Ctors
-        public Ocean()
-        {
-            _numColumns = NumColumnsDefault;
-            _numRows = NumRowsDefault;
-
-            _size = NumRows * NumColumns;
-            _cells = new Cell[NumRows, NumColumns];
-            _supervisor = new OceanViewer(this);
-            _randomNumberGenerator = new RandomNumberGenerator(this);
-
-            Run();
-        }
         #endregion
 
         #region Indexders

@@ -12,6 +12,14 @@ namespace OceanSimulationInConsole
         protected char _image; // the image of the cell that is displayed in the console
         #endregion
 
+        #region Ctors
+        protected Cell(Coordinate coordinate, IOcean ocean)
+        {
+            _owner = ocean;
+            _offset = coordinate;
+        }
+        #endregion
+
         #region Properties
         public Coordinate Offset
         {
@@ -27,14 +35,6 @@ namespace OceanSimulationInConsole
         public char Image
         {
             get => _image;
-        }
-        #endregion
-
-        #region Ctors
-        protected Cell(Coordinate coordinate, IOcean ocean)
-        {
-            _owner = ocean;
-            _offset = coordinate;
         }
         #endregion
 

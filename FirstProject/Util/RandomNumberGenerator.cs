@@ -9,16 +9,16 @@ namespace OceanSimulationInConsole
         private readonly IOceanLength _ocean; // field for interacting with the ocean
         #endregion
 
-        #region Properties
-        public Random Random { get { return _random; } }
-        #endregion
-
         #region Ctors
         public RandomNumberGenerator(IOceanLength ocean)
         {
             _random = new Random();
             this._ocean = ocean;
         }
+        #endregion
+
+        #region Properties
+        public Random Random { get { return _random; } }
         #endregion
 
         #region Methods
